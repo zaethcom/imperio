@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+<title>IMPERIO · Control Financiero</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap');
+:root{--gold:#C9A84C;--crimson:#8B0000;--red:#E63946;--green:#4ADE80;--blue:#38BDF8;--purple:#A855F7;--teal:#00BFA5;--bg:#080808;--card:rgba(255,255,255,0.035);--border:rgba(255,255,255,0.07);}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+html,body{background:var(--bg);color:white;font-family:'DM Sans',sans-serif;min-height:100vh;overflow-x:hidden;}
+::-webkit-scrollbar{width:3px;height:3px;}
+::-webkit-scrollbar-thumb{background:rgba(201,168,76,0.3);border-radius:4px;}
+body::before,body::after{content:'';position:fixed;border-radius:50%;pointer-events:none;z-index:0;}
+body::before{top:-200px;left:-200px;width:600px;height:600px;background:radial-gradient(circle,rgba(201,168,76,0.07) 0%,transparent 70%);}
+body::after{bottom:-150px;right:-150px;width:500px;height:500px;background:radial-gradient(circle,rgba(0,191,165,0.05) 0%,transparent 70%);}
+#app{position:relative;z-index:1;min-height:100vh;}
+#header{position:sticky;top:0;z-index:50;background:rgba(8,8,8,0.96);backdrop-filter:blur(24px);border-bottom:1px solid rgba(255,255,255,0.05);padding:12px 20px 10px;display:flex;justify-content:space-between;align-items:center;}
+.logo{font-family:'Playfair Display',serif;font-size:24px;font-weight:900;letter-spacing:6px;color:var(--gold);line-height:1;}
+.logo-sub{font-size:8px;color:rgba(255,255,255,0.18);letter-spacing:3px;text-transform:uppercase;margin-top:2px;}
+.status-dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);}
+#tabs{overflow-x:auto;padding:10px 14px 0;display:flex;gap:6px;border-bottom:1px solid rgba(255,255,255,0.05);position:sticky;top:54px;z-index:40;background:rgba(8,8,8,0.96);backdrop-filter:blur(20px);scrollbar-width:none;}
+#tabs::-webkit-scrollbar{display:none;}
+.tab-btn{flex-shrink:0;background:transparent;border:1px solid transparent;border-radius:20px;padding:7px 13px;color:rgba(255,255,255,0.3);font-size:11px;cursor:pointer;font-family:'DM Sans',sans-serif;white-space:nowrap;transition:all 0.2s;font-weight:400;}
+.tab-btn.active{background:rgba(201,168,76,0.12);border-color:rgba(201,168,76,0.4);color:var(--gold);font-weight:600;}
+#content{padding:18px 14px 60px;max-width:480px;margin:0 auto;}
+.card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:18px;backdrop-filter:blur(20px);box-shadow:0 4px 32px rgba(0,0,0,0.4);transition:all 0.25s ease;margin-bottom:12px;}
+.card.clickable{cursor:pointer;}
+.card.clickable:hover{transform:translateY(-1px);border-color:rgba(255,255,255,0.13);}
+.serif{font-family:'Playfair Display',serif;}
+.label{font-size:10px;color:rgba(255,255,255,0.3);letter-spacing:2px;text-transform:uppercase;margin-bottom:4px;}
+.hero-num{font-family:'Playfair Display',serif;font-size:36px;font-weight:900;letter-spacing:-1.5px;line-height:1;}
+.sec-title{font-size:10px;color:rgba(255,255,255,0.28);letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;}
+.bar-wrap{background:rgba(255,255,255,0.06);border-radius:99px;overflow:hidden;}
+.bar-fill{height:100%;border-radius:99px;transition:width 1.1s cubic-bezier(.22,1,.36,1);width:0%;}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;}
+.btn-p{width:100%;border:none;border-radius:12px;padding:13px 20px;font-size:14px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s;color:#080808;}
+.btn-p:hover{filter:brightness(1.1);transform:translateY(-1px);}
+.btn-gold{background:linear-gradient(135deg,#C9A84C,#C9A84Caa);}
+.btn-green{background:linear-gradient(135deg,#4ADE80,#4ADE80aa);}
+.btn-red{background:linear-gradient(135deg,#E63946,#E63946aa);}
+.btn-teal{background:linear-gradient(135deg,#00BFA5,#00BFA5aa);}
+.btn-purple{background:linear-gradient(135deg,#A855F7,#A855F7aa);}
+.btn-ghost{background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.7)!important;}
+.btn-sm{border:none;border-radius:8px;padding:4px 10px;font-size:11px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s;}
+.btn-sm-ghost{background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.5);}
+.btn-sm-red{background:rgba(230,57,70,0.14);color:var(--red);}
+.field{margin-bottom:12px;}
+.field-label{font-size:10px;color:rgba(255,255,255,0.3);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;}
+input,select,textarea{width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:11px 14px;color:white;font-size:14px;outline:none;font-family:'DM Sans',sans-serif;transition:border 0.2s;}
+input:focus,select:focus,textarea:focus{border-color:rgba(201,168,76,0.5);}
+input::placeholder,textarea::placeholder{color:rgba(255,255,255,0.2);}
+select{background:rgba(18,18,18,0.98);cursor:pointer;}
+select option{background:#1a1a1a;color:white;}
+input[type=date]::-webkit-calendar-picker-indicator{filter:invert(1);opacity:0.4;}
+textarea{resize:vertical;min-height:80px;}
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:200;display:flex;align-items:flex-end;justify-content:center;backdrop-filter:blur(10px);animation:fadeIn .2s ease;}
+.modal-box{background:#111;border:1px solid rgba(255,255,255,0.1);border-radius:24px 24px 0 0;padding:24px 20px 44px;width:100%;max-width:480px;animation:slideUp .32s cubic-bezier(.22,1,.36,1);max-height:90vh;overflow-y:auto;}
+.modal-title{font-family:'Playfair Display',serif;font-size:20px;font-weight:800;color:white;margin-bottom:20px;}
+.toast{position:fixed;top:72px;left:50%;transform:translateX(-50%);z-index:300;background:rgba(10,10,10,0.97);border-radius:14px;padding:12px 20px;display:flex;align-items:center;gap:10px;backdrop-filter:blur(24px);min-width:240px;max-width:320px;animation:toastIn .38s cubic-bezier(.22,1,.36,1);}
+.toast-icon{font-size:20px;}
+.toast-msg{font-size:13px;color:rgba(255,255,255,0.9);line-height:1.5;}
+.tx-row{display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:1px solid rgba(255,255,255,0.04);}
+.tx-row:last-child{border-bottom:none;}
+.tx-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+.type-sel{display:flex;gap:8px;margin-bottom:16px;}
+.type-btn{flex:1;border-radius:10px;padding:9px 4px;font-size:11px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.05);color:rgba(255,255,255,0.4);transition:all 0.2s;}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;}
+.cal-hdr{text-align:center;font-size:10px;color:rgba(255,255,255,0.22);padding:4px 0;}
+.cal-day{aspect-ratio:1;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;background:rgba(255,255,255,0.02);border:1px solid transparent;transition:all 0.2s;font-size:12px;color:rgba(255,255,255,0.6);font-family:'Playfair Display',serif;}
+.cal-day:hover{background:rgba(255,255,255,0.06);}
+.cal-day.today{background:rgba(255,255,255,0.09);border-color:rgba(255,255,255,0.2);color:white;font-weight:800;}
+.cal-day.selected{background:rgba(201,168,76,0.22);border-color:rgba(201,168,76,0.5);color:var(--gold);font-weight:800;}
+.cal-dots{display:flex;gap:2px;margin-top:2px;}
+.cal-dot{width:4px;height:4px;border-radius:2px;}
+.empty-state{text-align:center;padding:32px 20px;}
+.empty-icon{font-size:44px;margin-bottom:14px;}
+.empty-title{font-family:'Playfair Display',serif;font-size:16px;color:rgba(255,255,255,0.5);margin-bottom:8px;}
+.empty-sub{font-size:12px;color:rgba(255,255,255,0.28);}
+.habit-check{width:44px;height:44px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:22px;transition:all 0.3s;flex-shrink:0;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.05);cursor:pointer;}
+.habit-check.done{background:linear-gradient(135deg,#C9A84C,#C9A84Caa);border-color:var(--gold);font-size:18px;}
+.xp-badge{display:inline-flex;align-items:center;gap:4px;background:rgba(245,158,11,0.15);border:1px solid rgba(245,158,11,0.3);border-radius:20px;padding:3px 10px;font-size:11px;color:#F59E0B;font-weight:700;}
+.level-pill{display:inline-flex;align-items:center;gap:5px;border-radius:20px;padding:4px 12px;font-size:12px;font-weight:700;}
+.score-ring{position:relative;display:flex;align-items:center;justify-content:center;}
+.color-bar{display:flex;gap:3px;margin-top:14px;}
+.color-seg{height:5px;border-radius:3px;min-width:6px;}
+.reel-card{background:rgba(255,255,255,0.035);border:1px solid rgba(255,255,255,0.07);border-radius:16px;overflow:hidden;cursor:pointer;transition:all 0.2s;}
+.reel-card:hover{transform:translateY(-2px);border-color:rgba(201,168,76,0.3);}
+.reel-thumb{height:120px;display:flex;align-items:center;justify-content:center;font-size:48px;}
+.achievement-badge{display:flex;flex-direction:column;align-items:center;gap:6px;padding:14px 8px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:14px;transition:all 0.2s;cursor:pointer;}
+.achievement-badge.earned{border-color:rgba(245,158,11,0.4);background:rgba(245,158,11,0.08);}
+.achievement-badge.earned:hover{transform:translateY(-2px);}
+@keyframes pulse{0%,100%{opacity:.3;transform:scale(.8);}50%{opacity:1;transform:scale(1.2);}}
+@keyframes slideUp{from{opacity:0;transform:translateY(40px);}to{opacity:1;transform:translateY(0);}}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+@keyframes toastIn{from{opacity:0;transform:translateX(-50%) translateY(-12px);}to{opacity:1;transform:translateX(-50%) translateY(0);}}
+@keyframes confetti{0%{transform:translateY(0) rotate(0);opacity:1;}100%{transform:translateY(200px) rotate(720deg);opacity:0;}}
+@keyframes glow{0%,100%{box-shadow:0 0 10px rgba(0,191,165,0.3);}50%{box-shadow:0 0 30px rgba(0,191,165,0.6);}}
+#loading{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:999;flex-direction:column;gap:20px;}
+.loading-logo{font-family:'Playfair Display',serif;font-size:34px;font-weight:900;letter-spacing:8px;color:var(--gold);}
+.loading-dots{display:flex;gap:8px;}
+.loading-dot{width:8px;height:8px;border-radius:4px;background:var(--gold);}
+.celebration-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:500;display:flex;align-items:center;justify-content:center;animation:fadeIn 0.3s;}
+.celebration-box{text-align:center;padding:40px 30px;max-width:320px;}
+</style>
+</head>
+<body>
+<div id="loading">
+  <div class="loading-logo">IMPERIO</div>
+  <div class="loading-dots">
+    <div class="loading-dot" style="animation:pulse 1.2s 0s infinite"></div>
+    <div class="loading-dot" style="animation:pulse 1.2s 0.2s infinite"></div>
+    <div class="loading-dot" style="animation:pulse 1.2s 0.4s infinite"></div>
+  </div>
+</div>
+
+<div id="app" style="display:none">
+  <div id="header">
+    <div>
+      <div class="logo">IMPERIO</div>
+      <div class="logo-sub">control financiero · powered by AI</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:10px">
+      <div id="xp-header" style="display:none"></div>
+      <div class="status-dot"></div>
+    </div>
+  </div>
+  <div id="tabs">
+    <button class="tab-btn active" data-tab="home">⚡ Inicio</button>
+    <button class="tab-btn" data-tab="accounts">🏦 Cuentas</button>
+    <button class="tab-btn" data-tab="goals">🎯 Metas</button>
+    <button class="tab-btn" data-tab="discipline">⚔️ Disciplina</button>
+    <button class="tab-btn" data-tab="entrepreneur">🚀 Emprendedor</button>
+    <button class="tab-btn" data-tab="academy">📚 Academia</button>
+    <button class="tab-btn" data-tab="calendar">📅 Calendario</button>
+    <button class="tab-btn" data-tab="ai">🧠 MILLY IA</button>
+    <button class="tab-btn" data-tab="profile">👤 Perfil</button>
+    <div style="min-width:10px;flex-shrink:0"></div>
+  </div>
+  <div id="content"></div>
+</div>
+
+<div id="modal-container"></div>
+<div id="toast-container"></div>
+<div id="celebration-container"></div>
+
+<script>
+// ── CONSTANTS ─────────────────────────────────────────────────────────────────
+const GOLD='#C9A84C',RED='#E63946',GREEN='#4ADE80',BLUE='#38BDF8',PURPLE='#A855F7',TEAL='#00BFA5',ORANGE='#F97316';
+const MONTHS=['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
+const FULL_MONTHS=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+const CATS_IN=['Salario','Freelance','Venta','Negocio','Música','Regalo','Inversión','Otro ingreso'];
+const CATS_OUT=['Gasolina','Comida','Deudas','Esenciales','Ocio','Familia','Diezmo','Ropa','Transporte','Salud','Educación','Otro gasto'];
+const TYPE_ICONS={efectivo:'💵',nequi:'📱',daviplata:'🟣',bancolombia:'🏦',ahorros:'🏛️',otro:'💳'};
+const TYPE_COLORS={efectivo:GREEN,nequi:PURPLE,daviplata:'#A78BFA',bancolombia:GOLD,ahorros:BLUE,otro:ORANGE};
+const LEVELS=[
+  {name:'Despierто',min:0,color:'#6B7280',icon:'🌱',xp:500},
+  {name:'Constructor',min:500,color:BLUE,icon:'🔨',xp:2000},
+  {name:'Estratega',min:2000,color:GOLD,icon:'♟️',xp:5000},
+  {name:'Inversor',min:5000,color:PURPLE,icon:'💎',xp:10000},
+  {name:'Millonario',min:10000,color:TEAL,icon:'👑',xp:999999},
+];
+const ACHIEVEMENTS=[
+  {id:'first_tx',name:'Primer Paso',desc:'Registra tu primera transacción',icon:'👣',xp:50,rarity:'común'},
+  {id:'first_save',name:'Primer Ahorro',desc:'Registra tu primer ingreso de ahorro',icon:'💰',xp:100,rarity:'común'},
+  {id:'streak_7',name:'Racha de Fuego',desc:'7 días consecutivos registrando',icon:'🔥',xp:150,rarity:'raro'},
+  {id:'streak_30',name:'Imparable',desc:'30 días consecutivos',icon:'⚡',xp:500,rarity:'épico'},
+  {id:'first_goal',name:'Visionario',desc:'Crea tu primera meta',icon:'🎯',xp:80,rarity:'común'},
+  {id:'goal_done',name:'Conquistador',desc:'Completa una meta financiera',icon:'🏆',xp:300,rarity:'raro'},
+  {id:'no_impulse',name:'Mente de Acero',desc:'Resiste un gasto impulsivo',icon:'🧊',xp:120,rarity:'raro'},
+  {id:'first_sale',name:'Emprendedor',desc:'Registra tu primera venta',icon:'🛍️',xp:100,rarity:'común'},
+  {id:'level_3',name:'Estratega',desc:'Alcanza el nivel Estratega',icon:'♟️',xp:200,rarity:'épico'},
+  {id:'level_5',name:'Rey del Millón',desc:'Alcanza el nivel Millonario',icon:'👑',xp:1000,rarity:'legendario'},
+  {id:'war_win',name:'Guerrero',desc:'Completa el Modo Guerra',icon:'⚔️',xp:400,rarity:'épico'},
+  {id:'habits_all',name:'Disciplina Total',desc:'Completa todos los hábitos en un día',icon:'💪',xp:200,rarity:'raro'},
+];
+const ACADEMY_CONTENT=[
+  {id:1,cat:'Ahorro',emoji:'💰',title:'La Regla 50/30/20',desc:'La fórmula más simple para distribuir tu salario y empezar a ahorrar desde hoy.',duration:'2 min',xp:30,content:'Divide tu ingreso: 50% necesidades, 30% deseos, 20% ahorro e inversión. Aplica esta regla religiosamente y en 6 meses verás resultados reales.'},
+  {id:2,cat:'Deudas',emoji:'💳',title:'Método Avalancha vs Bola de Nieve',desc:'Dos estrategias probadas para eliminar todas tus deudas más rápido.',duration:'3 min',xp:40,content:'Avalancha: paga primero la deuda con mayor interés. Bola de Nieve: paga primero la más pequeña para ganar momentum. Ambas funcionan — elige según tu psicología.'},
+  {id:3,cat:'Mentalidad',emoji:'🧠',title:'Los 3 Enemigos del Dinero',desc:'Identifica y elimina los hábitos que te roban dinero sin que te des cuenta.',duration:'2 min',xp:30,content:'1. Gastos hormiga: pequeños gastos diarios. 2. Síndrome del nivel de vida: gastar más cuando ganas más. 3. FOMO financiero: comprar por miedo a perderse algo.'},
+  {id:4,cat:'Inversión',emoji:'📈',title:'Interés Compuesto — Tu Mayor Aliado',desc:'Entiende por qué Einstein llamó al interés compuesto "la octava maravilla del mundo".',duration:'4 min',xp:50,content:'$100 al mes durante 30 años al 8% anual = $150,000. El tiempo es tu activo más valioso. Empieza hoy, aunque sea poco.'},
+  {id:5,cat:'Negocios',emoji:'🚀',title:'Cómo Calcular tu Precio Real',desc:'El error más común de los emprendedores: vender sin saber si ganan dinero.',duration:'3 min',xp:40,content:'Precio = Costo + Gastos fijos proporcionales + Margen de ganancia mínimo 30%. Si no calculas esto, podrías estar perdiendo dinero aunque tengas "ventas".'},
+  {id:6,cat:'Productividad',emoji:'⚡',title:'El Sistema de las 3 Cuentas',desc:'Separa tu dinero en 3 cuentas para nunca mezclar finanzas personales y de negocio.',duration:'2 min',xp:30,content:'Cuenta 1: Gastos fijos. Cuenta 2: Ahorro e inversión. Cuenta 3: Gastos variables y ocio. Esta separación crea claridad mental y control real.'},
+  {id:7,cat:'Mentalidad',emoji:'👑',title:'Mentalidad de Riqueza vs Escasez',desc:'El dinero empieza en la cabeza. Cambia estos patrones y cambia tu economía.',duration:'3 min',xp:35,content:'Mentalidad de escasez: "no puedo pagarlo". Mentalidad de riqueza: "¿cómo puedo pagarlo?". La segunda activa tu creatividad y busca soluciones. Practica este cambio consciente diariamente.'},
+  {id:8,cat:'Ahorro',emoji:'🏦',title:'Fondo de Emergencia — El Escudo Financiero',desc:'Sin esto, cualquier imprevisto destruye tu progreso financiero.',duration:'2 min',xp:30,content:'Meta: tener 3–6 meses de gastos en una cuenta de fácil acceso. Este dinero es sagrado — solo para emergencias reales. Con este fondo, ninguna sorpresa te hunde.'},
+];
+const LOCK_PHRASES=[
+  {text:'Tu yo futuro te agradecerá esta decisión.',icon:'🔮'},
+  {text:'¿Esto es una necesidad o una emoción momentánea?',icon:'🧠'},
+  {text:'Cada peso protegido construye tu libertad.',icon:'🛡️'},
+  {text:'Los millonarios piensan antes de gastar. Tú también puedes.',icon:'👑'},
+  {text:'La disciplina financiera crea imperios. No cedas.',icon:'⚔️'},
+];
+const INCOME_PHRASES=[
+  {text:'Buen trabajo. Tu imperio sigue creciendo.',icon:'👑'},
+  {text:'Cada ingreso es un paso hacia tu millón.',icon:'🏛️'},
+  {text:'Tu disciplina está generando resultados reales.',icon:'⚡'},
+  {text:'Otro ladrillo en tu edificio financiero.',icon:'🧱'},
+];
+const MOTIVATIONAL=[
+  'El dinero es un resultado. La disciplina es el camino.',
+  'No gastes lo que ganas. Invierte en quien serás.',
+  'Cada peso controlado es un ladrillo de tu imperio.',
+  'La riqueza se construye en silencio, con disciplina brutal.',
+  'La libertad financiera no se hereda. Se construye.',
+  'Tu millón empieza con el próximo peso que decides no gastar.',
+];
+
+// ── STATE ─────────────────────────────────────────────────────────────────────
+const SK='imperio-v4';
+let S={
+  accounts:[],transactions:[],goals:[],sales:[],
+  habits:[
+    {id:1,name:'Ahorrar hoy',xp:50,streak:0,done:false,icon:'💰'},
+    {id:2,name:'Sin gastos impulsivos',xp:40,streak:0,done:false,icon:'🧠'},
+    {id:3,name:'Estudiar finanzas',xp:30,streak:0,done:false,icon:'📚'},
+    {id:4,name:'Entrenar',xp:20,streak:0,done:false,icon:'⚡'},
+    {id:5,name:'Revisar metas',xp:35,streak:0,done:false,icon:'🎯'},
+  ],
+  totalXP:0,streak:0,lastHabitDate:'',
+  earnedAchievements:[],
+  warMode:false,warDebt:0,warDaysLeft:0,
+  impulseChecks:[],
+  completedLessons:[],
+  financialScore:0,
+};
+let TAB='home';
+let QI=0,QT=null;
+let calYear=new Date().getFullYear(),calMonth=new Date().getMonth(),calSel=null;
+let AI_MSGS=[{role:'ai',text:'¡Hola! Soy MILLY, tu asistente financiera personal de IMPERIO. Analizo tus datos en tiempo real y te doy estrategias precisas. ¿Qué quieres conquistar hoy?'}];
+let AI_LOADING=false;
+
+function save(){try{localStorage.setItem(SK,JSON.stringify(S));}catch(e){}}
+function load(){try{const d=localStorage.getItem(SK);if(d){const p=JSON.parse(d);Object.assign(S,p);}}catch(e){}}
+
+// ── HELPERS ──────────────────────────────────────────────────────────────────
+const fmt=n=>'$'+Math.abs(Math.round(n||0)).toLocaleString('es-CO');
+const pct=(a,b)=>b>0?Math.min(Math.round((a/b)*100),100):0;
+const randOf=arr=>arr[Math.floor(Math.random()*arr.length)];
+const today=()=>new Date().toISOString().split('T')[0];
+const NOW=new Date();
+const el=id=>document.getElementById(id);
+const getLevel=xp=>{let l=LEVELS[0];for(const lv of LEVELS)if(xp>=lv.min)l=lv;return l;};
+const calcScore=()=>{
+  const total=S.accounts.reduce((s,a)=>s+a.balance,0);
+  const mTx=S.transactions.filter(t=>{const d=new Date(t.date);return d.getMonth()===NOW.getMonth()&&d.getFullYear()===NOW.getFullYear();});
+  const mIn=mTx.filter(t=>t.type==='ingreso').reduce((s,t)=>s+t.amount,0);
+  const mOut=mTx.filter(t=>t.type==='gasto').reduce((s,t)=>s+t.amount,0);
+  let score=500;
+  if(mIn>0){const ratio=(mIn-mOut)/mIn;score+=Math.round(ratio*200);}
+  if(S.streak>0)score+=Math.min(S.streak*5,100);
+  if(S.goals.length>0)score+=50;
+  if(S.earnedAchievements.length>0)score+=S.earnedAchievements.length*10;
+  return Math.max(0,Math.min(1000,score));
+};
+
+// ── TOAST ────────────────────────────────────────────────────────────────────
+function toast(msg,color=GOLD,icon='✓'){
+  const tc=el('toast-container');tc.innerHTML='';
+  const t=document.createElement('div');t.className='toast';
+  t.style.border=`1px solid ${color}55`;t.style.boxShadow=`0 8px 40px rgba(0,0,0,0.7),0 0 20px ${color}18`;
+  t.innerHTML=`<span class="toast-icon">${icon}</span><span class="toast-msg">${msg}</span>`;
+  tc.appendChild(t);
+  setTimeout(()=>{t.style.opacity='0';t.style.transform='translateX(-50%) translateY(-12px)';t.style.transition='all 0.4s';setTimeout(()=>tc.innerHTML='',400);},3000);
+}
+
+// ── CELEBRATION ───────────────────────────────────────────────────────────────
+function celebrate(emoji,title,subtitle,xpGain=0){
+  const cc=el('celebration-container');
+  cc.innerHTML=`
+    <div class="celebration-overlay" onclick="this.parentElement.innerHTML=''">
+      <div class="celebration-box">
+        <div style="font-size:72px;margin-bottom:16px;animation:glow 1s infinite">${emoji}</div>
+        <div style="font-family:'Playfair Display',serif;font-size:28px;font-weight:900;color:white;margin-bottom:8px">${title}</div>
+        <div style="font-size:14px;color:rgba(255,255,255,0.6);margin-bottom:20px">${subtitle}</div>
+        ${xpGain?`<div class="xp-badge" style="margin:0 auto">⚡ +${xpGain} XP ganados</div>`:''}
+        <div style="margin-top:24px;font-size:12px;color:rgba(255,255,255,0.25)">Toca para cerrar</div>
+      </div>
+    </div>`;
+  setTimeout(()=>cc.innerHTML='',5000);
+}
+
+// ── MODAL ────────────────────────────────────────────────────────────────────
+function openModal(html,onOpen){
+  const mc=el('modal-container');
+  mc.innerHTML=`<div class="modal-overlay" id="modal-overlay"><div class="modal-box" id="modal-box">${html}</div></div>`;
+  mc.querySelector('.modal-overlay').onclick=e=>{if(e.target===e.currentTarget)closeModal();};
+  if(onOpen)onOpen();
+}
+function closeModal(){el('modal-container').innerHTML='';}
+
+// ── ANIMATED BAR ─────────────────────────────────────────────────────────────
+function animBar(wrap,p,color,h=6,delay=0){
+  wrap.className='bar-wrap';wrap.style.height=h+'px';
+  const fill=document.createElement('div');fill.className='bar-fill';
+  fill.style.cssText=`background:linear-gradient(90deg,${color},${color}88);box-shadow:0 0 10px ${color}55;height:100%;`;
+  wrap.appendChild(fill);
+  setTimeout(()=>fill.style.width=Math.min(p||0,100)+'%',300+delay);
+}
+
+// ── XP SYSTEM ────────────────────────────────────────────────────────────────
+function addXP(amount,reason=''){
+  S.totalXP+=amount;
+  const lv=getLevel(S.totalXP);
+  updateXPHeader();
+  save();
+  if(reason)toast(`+${amount} XP — ${reason}`,GOLD,'⚡');
+}
+
+function updateXPHeader(){
+  const xh=el('xp-header');if(!xh)return;
+  const lv=getLevel(S.totalXP);
+  xh.style.display='flex';
+  xh.innerHTML=`<div class="xp-badge">${lv.icon} ${lv.name} · ${S.totalXP} XP</div>`;
+}
+
+function checkAchievement(id){
+  if(S.earnedAchievements.includes(id))return;
+  const ach=ACHIEVEMENTS.find(a=>a.id===id);if(!ach)return;
+  S.earnedAchievements.push(id);
+  addXP(ach.xp);save();
+  setTimeout(()=>celebrate(ach.icon,'¡Logro desbloqueado!',ach.name,ach.xp),300);
+}
+
+// ── RENDER ROUTER ────────────────────────────────────────────────────────────
+function render(){
+  const c=el('content');c.innerHTML='';
+  if(QT){clearInterval(QT);QT=null;}
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('active',b.dataset.tab===TAB));
+  updateXPHeader();
+  S.financialScore=calcScore();
+  switch(TAB){
+    case'home':renderHome(c);break;
+    case'accounts':renderAccounts(c);break;
+    case'goals':renderGoals(c);break;
+    case'discipline':renderDiscipline(c);break;
+    case'entrepreneur':renderEntrepreneur(c);break;
+    case'academy':renderAcademy(c);break;
+    case'calendar':renderCalendar(c);break;
+    case'ai':renderAI(c);break;
+    case'profile':renderProfile(c);break;
+  }
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// HOME
+// ══════════════════════════════════════════════════════════════════════════════
+function renderHome(c){
+  const total=S.accounts.reduce((s,a)=>s+a.balance,0);
+  const lv=getLevel(S.totalXP);const nxt=LEVELS[LEVELS.indexOf(lv)+1];
+  const mTx=S.transactions.filter(t=>{const d=new Date(t.date);return d.getMonth()===NOW.getMonth()&&d.getFullYear()===NOW.getFullYear();});
+  const mIn=mTx.filter(t=>t.type==='ingreso').reduce((s,t)=>s+t.amount,0);
+  const mOut=mTx.filter(t=>t.type==='gasto').reduce((s,t)=>s+t.amount,0);
+  const score=S.financialScore;
+
+  // Hero
+  const hero=document.createElement('div');
+  hero.className='card';hero.style.marginBottom='14px';
+  hero.style.border=`1px solid ${lv.color}44`;hero.style.boxShadow=`0 0 30px ${lv.color}10`;
+  hero.innerHTML=`
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px">
+      <div>
+        <div class="label">Patrimonio Total</div>
+        <div class="hero-num serif" style="color:white">${fmt(total)}</div>
+        <div style="margin-top:6px;display:flex;align-items:center;gap:8px">
+          <div class="level-pill" style="background:${lv.color}18;color:${lv.color};border:1px solid ${lv.color}44">${lv.icon} ${lv.name}</div>
+          ${S.streak>0?`<div style="font-size:11px;color:${ORANGE}">🔥 ${S.streak} días</div>`:''}
+        </div>
+      </div>
+      <div style="text-align:center">
+        <div style="font-size:9px;color:rgba(255,255,255,0.3);letter-spacing:1px;margin-bottom:4px">SCORE</div>
+        <div style="width:64px;height:64px;border-radius:50%;background:conic-gradient(${TEAL} ${score*3.6}deg,rgba(255,255,255,0.06) 0deg);display:flex;align-items:center;justify-content:center;position:relative">
+          <div style="width:50px;height:50px;border-radius:50%;background:#0d0d0d;display:flex;flex-direction:column;align-items:center;justify-content:center">
+            <div style="font-size:16px;font-weight:900;color:${TEAL};font-family:'Playfair Display',serif;line-height:1">${score}</div>
+            <div style="font-size:7px;color:rgba(255,255,255,0.3)">/1000</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    ${nxt?`<div id="lv-bar"></div><div style="display:flex;justify-content:space-between;margin-top:5px"><span style="font-size:9px;color:rgba(255,255,255,0.2)">${S.totalXP} XP</span><span style="font-size:9px;color:${lv.color}">${pct(S.totalXP,nxt.min)}% → ${nxt.name}</span></div>`:''}
+    <div class="grid-2" style="margin-top:16px">
+      <div style="background:rgba(74,222,128,0.1);border:1px solid rgba(74,222,128,0.3);border-radius:12px;padding:10px 14px">
+        <div style="font-size:9px;color:rgba(255,255,255,0.3);text-transform:uppercase;margin-bottom:4px">Ingresos mes</div>
+        <div class="serif" style="font-size:18px;font-weight:800;color:${GREEN}">${fmt(mIn)}</div>
+      </div>
+      <div style="background:rgba(230,57,70,0.1);border:1px solid rgba(230,57,70,0.3);border-radius:12px;padding:10px 14px">
+        <div style="font-size:9px;color:rgba(255,255,255,0.3);text-transform:uppercase;margin-bottom:4px">Gastos mes</div>
+        <div class="serif" style="font-size:18px;font-weight:800;color:${RED}">${fmt(mOut)}</div>
+      </div>
+    </div>`;
+  c.appendChild(hero);
+  if(nxt){const bw=el('lv-bar');if(bw)animBar(bw,pct(S.totalXP,nxt.min),lv.color);}
+
+  // Quick entry
+  const qe=document.createElement('div');qe.className='grid-2';qe.style.marginBottom='14px';
+  qe.innerHTML=`
+    <button onclick="openQuickEntry('ingreso')" style="background:linear-gradient(135deg,rgba(74,222,128,0.2),rgba(74,222,128,0.08));border:1px solid rgba(74,222,128,0.4);border-radius:16px;padding:18px 14px;cursor:pointer;text-align:center;width:100%;transition:all 0.25s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
+      <div style="font-size:28px;margin-bottom:8px">📥</div>
+      <div class="serif" style="font-size:15px;font-weight:700;color:${GREEN}">Ingreso</div>
+      <div style="font-size:11px;color:rgba(255,255,255,0.35);margin-top:2px">Registrar entrada</div>
+    </button>
+    <button onclick="openQuickEntry('gasto')" style="background:linear-gradient(135deg,rgba(230,57,70,0.2),rgba(230,57,70,0.08));border:1px solid rgba(230,57,70,0.4);border-radius:16px;padding:18px 14px;cursor:pointer;text-align:center;width:100%;transition:all 0.25s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
+      <div style="font-size:28px;margin-bottom:8px">📤</div>
+      <div class="serif" style="font-size:15px;font-weight:700;color:${RED}">Gasto</div>
+      <div style="font-size:11px;color:rgba(255,255,255,0.35);margin-top:2px">Registrar salida</div>
+    </button>`;
+  c.appendChild(qe);
+
+  // Anti-impulse button
+  const ai=document.createElement('button');
+  ai.onclick=()=>openAntiImpulse();
+  ai.style.cssText=`width:100%;background:linear-gradient(135deg,rgba(168,85,247,0.2),rgba(168,85,247,0.08));border:1px solid rgba(168,85,247,0.4);border-radius:14px;padding:14px;cursor:pointer;display:flex;align-items:center;gap:12px;margin-bottom:14px;transition:all 0.25s;`;
+  ai.innerHTML=`<div style="font-size:24px">🛡️</div><div style="text-align:left"><div class="serif" style="font-size:14px;font-weight:700;color:${PURPLE}">Anti-Gasto Impulsivo</div><div style="font-size:11px;color:rgba(255,255,255,0.35)">¿Estás por comprar algo? Consulta primero a la IA</div></div><div style="margin-left:auto;font-size:18px">→</div>`;
+  c.appendChild(ai);
+
+  // Welcome / empty state
+  if(S.accounts.length===0){
+    const ws=document.createElement('div');ws.className='card';ws.style.cssText='text-align:center;padding:28px 22px;margin-bottom:14px;border-color:rgba(201,168,76,0.3);';
+    ws.innerHTML=`<div style="font-size:44px;margin-bottom:14px">🏛️</div><div class="serif" style="font-size:18px;font-weight:800;color:${GOLD};margin-bottom:8px">Bienvenido a IMPERIO</div><div style="font-size:13px;color:rgba(255,255,255,0.55);line-height:1.7;margin-bottom:16px">Tu sistema operativo financiero personal.<br>Empieza creando tu primera cuenta.</div><button class="btn-p btn-gold" onclick="switchTab('accounts')">🏦 Crear primera cuenta</button>`;
+    c.appendChild(ws);
+  }
+
+  // Recent transactions
+  if(S.transactions.length>0){
+    const rc=document.createElement('div');rc.className='card';rc.style.marginBottom='14px';
+    rc.innerHTML=`<div class="sec-title">Movimientos Recientes</div>`;
+    [...S.transactions].reverse().slice(0,4).forEach(tx=>rc.appendChild(buildTxRow(tx)));
+    c.appendChild(rc);
+  }
+
+  // Goals preview
+  if(S.goals.length>0){
+    const gp=document.createElement('div');gp.className='card';gp.style.marginBottom='14px';
+    gp.innerHTML=`<div class="sec-title">Metas Activas</div>`;
+    S.goals.slice(0,2).forEach((g,i)=>{
+      const p=pct(g.saved,g.target);
+      const row=document.createElement('div');row.style.marginBottom='12px';
+      row.innerHTML=`<div style="display:flex;justify-content:space-between;margin-bottom:6px"><span style="font-size:13px">${g.icon} ${g.name}</span><span class="serif" style="font-size:13px;color:${GOLD}">${p}%</span></div><div id="gbar-${g.id}"></div>`;
+      gp.appendChild(row);
+    });
+    c.appendChild(gp);
+    S.goals.slice(0,2).forEach((g,i)=>{const bw=el(`gbar-${g.id}`);if(bw)animBar(bw,pct(g.saved,g.target),GOLD,5,i*100);});
+  }
+
+  // Quote
+  const qc=document.createElement('div');qc.className='card';qc.style.cssText='text-align:center;padding:18px 22px;border-color:rgba(201,168,76,0.3);';
+  qc.innerHTML=`<div style="font-size:9px;color:${GOLD};letter-spacing:3px;text-transform:uppercase;margin-bottom:10px">Mentalidad Imperial</div><div id="quote-text" class="serif" style="font-size:14px;color:rgba(255,255,255,0.82);font-style:italic;line-height:1.65;transition:opacity 0.4s ease">"${MOTIVATIONAL[QI]}"</div>`;
+  c.appendChild(qc);
+  QT=setInterval(()=>{const qt=el('quote-text');if(!qt)return;qt.style.opacity='0';setTimeout(()=>{QI=(QI+1)%MOTIVATIONAL.length;if(qt){qt.innerHTML=`"${MOTIVATIONAL[QI]}"`;qt.style.opacity='1';}},480);},6000);
+}
+
+// Quick entry
+window.openQuickEntry=function(mode){
+  if(S.accounts.length===0){toast('Primero crea una cuenta.',GOLD,'🏦');return;}
+  const ao=S.accounts.map(a=>`<option value="${a.id}">${a.icon} ${a.name} — ${fmt(a.balance)}</option>`).join('');
+  const co=(mode==='ingreso'?CATS_IN:CATS_OUT).map(c=>`<option value="${c}">${c}</option>`).join('');
+  const col=mode==='ingreso'?GREEN:RED,ic=mode==='ingreso'?'📥':'📤';
+  openModal(`
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:22px">
+      <div style="width:40px;height:40px;border-radius:12px;background:${col}22;border:1px solid ${col}55;display:flex;align-items:center;justify-content:center;font-size:20px">${ic}</div>
+      <div class="serif modal-title" style="color:${col};margin:0">Registrar ${mode==='ingreso'?'Ingreso':'Gasto'}</div>
+    </div>
+    <div style="text-align:center;margin-bottom:22px">
+      <div style="font-size:10px;color:rgba(255,255,255,0.3);letter-spacing:1px;text-transform:uppercase;margin-bottom:10px">¿Cuánto?</div>
+      <div style="display:inline-flex;align-items:center;gap:4px">
+        <span style="font-family:'Playfair Display',serif;font-size:26px;color:rgba(255,255,255,0.4)">$</span>
+        <input id="q-amt" type="number" inputmode="numeric" placeholder="0" autofocus style="font-family:'Playfair Display',serif;font-size:40px;font-weight:900;color:white;background:transparent;border:none;width:200px;text-align:center;outline:none;">
+      </div>
+      <div style="height:2px;background:linear-gradient(90deg,transparent,${col},transparent);margin-top:8px;opacity:0.5"></div>
+    </div>
+    <div class="field"><div class="field-label">Cuenta</div><select id="q-acc">${ao}</select></div>
+    <div class="field"><div class="field-label">Categoría</div><select id="q-cat">${co}</select></div>
+    <div class="field"><div class="field-label">Descripción (opcional)</div><input id="q-desc" type="text" placeholder="¿De dónde? / ¿En qué?"></div>
+    <button class="btn-p ${mode==='ingreso'?'btn-green':'btn-red'}" style="color:#080808" onclick="confirmQuickEntry('${mode}')">✓ Confirmar ${mode==='ingreso'?'Ingreso':'Gasto'}</button>`);
+};
+
+window.confirmQuickEntry=function(mode){
+  const amt=parseFloat(el('q-amt')?.value||0),accId=parseInt(el('q-acc')?.value||0);
+  const cat=el('q-cat')?.value||'',desc=el('q-desc')?.value?.trim()||'';
+  if(!amt||!accId){toast('Ingresa un monto válido.',RED,'⚠️');return;}
+  const tx={id:Date.now(),type:mode,accountId:accId,category:cat,amount:amt,desc,date:today()};
+  S.transactions.push(tx);
+  S.accounts=S.accounts.map(a=>a.id===accId?{...a,balance:a.balance+(mode==='ingreso'?amt:-amt)}:a);
+  save();closeModal();
+  checkAchievement('first_tx');
+  if(mode==='ingreso'){const p=randOf(INCOME_PHRASES);toast(p.text,GREEN,p.icon);addXP(10,'Ingreso registrado');}
+  else{toast('Gasto registrado.',RED,'📤');addXP(5,'Gasto registrado');}
+  render();
+};
+
+// Anti-impulse
+window.openAntiImpulse=function(){
+  openModal(`
+    <div style="text-align:center;margin-bottom:20px">
+      <div style="font-size:48px;margin-bottom:12px">🛡️</div>
+      <div class="serif modal-title" style="color:${PURPLE}">Escudo Anti-Impulso</div>
+      <div style="font-size:13px;color:rgba(255,255,255,0.5);line-height:1.6">Antes de comprar algo no planeado,<br>analicemos juntos si vale la pena.</div>
+    </div>
+    <div class="field"><div class="field-label">¿Qué quieres comprar?</div><input id="ai-item" type="text" placeholder="Ej: audífonos nuevos, ropa, salir a comer..."></div>
+    <div class="field"><div class="field-label">¿Cuánto cuesta?</div><input id="ai-price" type="number" placeholder="0"></div>
+    <div class="field"><div class="field-label">¿Por qué lo quieres comprar?</div><textarea id="ai-reason" placeholder="Sé honesto/a contigo mismo/a..."></textarea></div>
+    <button class="btn-p btn-purple" style="color:white" onclick="analyzeImpulse()">🧠 Analizar con MILLY IA</button>`);
+};
+
+window.analyzeImpulse=async function(){
+  const item=el('ai-item')?.value?.trim(),price=parseFloat(el('ai-price')?.value||0),reason=el('ai-reason')?.value?.trim();
+  if(!item){toast('Describe qué quieres comprar.',PURPLE,'⚠️');return;}
+  const btn=el('modal-box')?.querySelector('button');
+  if(btn){btn.textContent='Analizando...';btn.disabled=true;}
+  const total=S.accounts.reduce((s,a)=>s+a.balance,0);
+  const mTx=S.transactions.filter(t=>{const d=new Date(t.date);return d.getMonth()===NOW.getMonth()&&d.getFullYear()===NOW.getFullYear();});
+  const mOut=mTx.filter(t=>t.type==='gasto').reduce((s,t)=>s+t.amount,0);
+  const ctx=`Eres MILLY, asistente financiera de IMPERIO. El usuario quiere comprar: "${item}" por ${fmt(price)}. Razón: "${reason||'no especificada'}". Su patrimonio actual: ${fmt(total)}. Sus gastos este mes: ${fmt(mOut)}. Responde con: 1) Análisis psicológico de la compra (2 frases). 2) Impacto financiero real (1 frase). 3) Pregunta reflexiva poderosa. 4) Recomendación final (esperar/proceder/alternativa). Sin asteriscos, sin markdown, en español, máximo 4 párrafos cortos.`;
+  try{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:500,system:ctx,messages:[{role:'user',content:`Quiero comprar: ${item}`}]})});
+    const data=await res.json();
+    const reply=data.content?.map(b=>b.text||'').join('')||'No pude conectarme. Reflexiona: ¿lo necesitas realmente?';
+    S.impulseChecks.push({id:Date.now(),item,price,reason,analysis:reply,date:today(),avoided:false});
+    save();checkAchievement('no_impulse');
+    closeModal();
+    openModal(`
+      <div style="text-align:center;margin-bottom:20px">
+        <div style="font-size:40px;margin-bottom:12px">🧠</div>
+        <div class="serif" style="font-size:18px;font-weight:800;color:${PURPLE};margin-bottom:4px">Análisis de MILLY</div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.4)">${item} · ${fmt(price)}</div>
+      </div>
+      <div style="background:rgba(168,85,247,0.08);border:1px solid rgba(168,85,247,0.3);border-radius:14px;padding:18px;margin-bottom:20px;font-size:13px;color:rgba(255,255,255,0.85);line-height:1.7">${reply.replace(/\n/g,'<br>')}</div>
+      <div class="grid-2">
+        <button class="btn-p" style="background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.7);border:1px solid rgba(255,255,255,0.1)" onclick="markAvoided();closeModal()">🛡️ Lo evité (+120 XP)</button>
+        <button class="btn-p" style="background:rgba(230,57,70,0.2);color:${RED};border:1px solid rgba(230,57,70,0.3)" onclick="closeModal()">💳 Lo voy a comprar</button>
+      </div>`);
+  }catch(e){
+    closeModal();toast('Error de conexión. Reflexiona: ¿realmente lo necesitas?',PURPLE,'🧠');
+  }
+};
+
+window.markAvoided=function(){
+  if(S.impulseChecks.length>0)S.impulseChecks[S.impulseChecks.length-1].avoided=true;
+  addXP(120,'¡Gasto impulsivo evitado!');save();
+};
+
+// ══════════════════════════════════════════════════════════════════════════════
+// ACCOUNTS
+// ══════════════════════════════════════════════════════════════════════════════
+function renderAccounts(c){
+  const total=S.accounts.reduce((s,a)=>s+a.balance,0);
+  const mTx=S.transactions.filter(t=>{const d=new Date(t.date);return d.getMonth()===NOW.getMonth()&&d.getFullYear()===NOW.getFullYear();});
+  const mIn=mTx.filter(t=>t.type==='ingreso').reduce((s,t)=>s+t.amount,0);
+  const mOut=mTx.filter(t=>t.type==='gasto').reduce((s,t)=>s+t.amount,0);
+
+  const sc=document.createElement('div');sc.className='card';sc.style.cssText='margin-bottom:14px;border-color:rgba(201,168,76,0.3);';
+  sc.innerHTML=`<div class="label">Saldo Total</div><div class="hero-num serif" style="color:white">${fmt(total)}</div>
+    <div style="display:flex;gap:16px;margin-top:10px">
+      <div style="font-size:11px;color:${GREEN}">📥 ${fmt(mIn)} este mes</div>
+      <div style="font-size:11px;color:${RED}">📤 ${fmt(mOut)} este mes</div>
+    </div>
+    <div class="color-bar" id="acc-cbar"></div>`;
+  c.appendChild(sc);
+  if(S.accounts.length>1&&total>0){const cb=el('acc-cbar');S.accounts.forEach(a=>{const s=document.createElement('div');s.className='color-seg';s.style.cssText=`background:${a.color};flex:${a.balance||1}`;cb.appendChild(s);});}
+
+  const ab=document.createElement('div');ab.className='grid-2';ab.style.marginBottom='14px';
+  ab.innerHTML=`<button class="btn-p btn-gold" onclick="openAddTxModal()">⚡ Nuevo Movimiento</button><button class="btn-p btn-ghost" onclick="openAddAccModal()">🏦 Nueva Cuenta</button>`;
+  c.appendChild(ab);
+
+  if(S.accounts.length===0){
+    const es=document.createElement('div');es.className='card empty-state';es.style.marginBottom='14px';
+    es.innerHTML=`<div class="empty-icon">🏦</div><div class="empty-title">Sin cuentas aún</div><div class="empty-sub">Agrega tu primera cuenta para comenzar</div>`;
+    c.appendChild(es);
+  } else {
+    S.accounts.forEach(a=>{
+      const ac=document.createElement('div');ac.className='card';ac.style.cssText=`margin-bottom:10px;border-color:${a.color}44;box-shadow:0 0 28px ${a.color}08;`;
+      ac.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:center">
+        <div style="display:flex;align-items:center;gap:12px">
+          <div style="width:46px;height:46px;border-radius:14px;background:${a.color}18;border:1px solid ${a.color}44;display:flex;align-items:center;justify-content:center;font-size:22px">${a.icon}</div>
+          <div><div class="serif" style="font-size:16px;font-weight:700;color:white">${a.name}</div>${total>0?`<div style="font-size:10px;color:rgba(255,255,255,0.28);margin-top:2px">${pct(a.balance,total)}% del patrimonio</div>`:''}</div>
+        </div>
+        <div style="text-align:right">
+          <div class="serif" style="font-size:20px;font-weight:900;color:${a.color}">${fmt(a.balance)}</div>
+          <div style="display:flex;gap:6px;margin-top:6px;justify-content:flex-end">
+            <button class="btn-sm btn-sm-ghost" onclick="openEditAcc(${a.id})">Editar</button>
+            <button class="btn-sm btn-sm-red" onclick="delAcc(${a.id})">✕</button>
+          </div>
+        </div>
+      </div><div id="abar-${a.id}" style="margin-top:12px"></div>`;
+      c.appendChild(ac);
+      if(total>0){const bw=el(`abar-${a.id}`);if(bw)animBar(bw,pct(a.balance,total),a.color);}
+    });
+  }
+
+  if(S.transactions.length>0){
+    const th=document.createElement('div');th.className='card';
+    th.innerHTML=`<div class="sec-title">Historial Completo</div>`;
+    [...S.transactions].reverse().forEach(tx=>th.appendChild(buildTxRow(tx)));
+    c.appendChild(th);
+  }
+}
+
+function buildTxRow(tx){
+  const acc=S.accounts.find(a=>a.id===tx.accountId);
+  const col=tx.type==='ingreso'?GREEN:tx.type==='gasto'?RED:BLUE;
+  const sign=tx.type==='ingreso'?'+':tx.type==='gasto'?'-':'';
+  const ic=tx.type==='ingreso'?'📥':tx.type==='gasto'?'📤':'🔄';
+  const d=new Date(tx.date);
+  const row=document.createElement('div');row.className='tx-row';
+  row.innerHTML=`<div style="display:flex;align-items:center;gap:10px"><div class="tx-icon" style="background:${col}15;border:1px solid ${col}30">${ic}</div><div><div style="font-size:13px;color:rgba(255,255,255,0.85)">${tx.desc||tx.category}</div><div style="font-size:10px;color:rgba(255,255,255,0.28)">${acc?.name||'—'} · ${tx.category} · ${d.getDate()} ${MONTHS[d.getMonth()]}</div></div></div><div class="serif" style="font-size:14px;font-weight:700;color:${col}">${sign}${fmt(tx.amount)}</div>`;
+  return row;
+}
+
+window.delAcc=function(id){if(!confirm('¿Eliminar esta cuenta?'))return;S.accounts=S.accounts.filter(a=>a.id!==id);save();render();toast('Cuenta eliminada.',RED,'✕');};
+window.openAddAccModal=function(){
+  const to=Object.entries(TYPE_ICONS).map(([k,v])=>`<option value="${k}">${v} ${k.charAt(0).toUpperCase()+k.slice(1)}</option>`).join('');
+  openModal(`<div class="modal-title">🏦 Nueva Cuenta</div>
+    <div class="field"><div class="field-label">Nombre</div><input id="na-name" type="text" placeholder="Ej: Nequi personal"></div>
+    <div class="field"><div class="field-label">Tipo</div><select id="na-type">${to}</select></div>
+    <div class="field"><div class="field-label">Saldo inicial</div><input id="na-bal" type="number" placeholder="0"></div>
+    <button class="btn-p btn-gold" onclick="confirmAddAcc()">Agregar Cuenta</button>`);
+};
+window.confirmAddAcc=function(){
+  const name=el('na-name')?.value?.trim();if(!name){toast('Escribe un nombre.',GOLD,'⚠️');return;}
+  const type=el('na-type')?.value||'otro',bal=parseFloat(el('na-bal')?.value||0);
+  S.accounts.push({id:Date.now(),name,type,balance:bal,color:TYPE_COLORS[type]||GOLD,icon:TYPE_ICONS[type]||'💳'});
+  save();closeModal();render();toast(`${name} agregada.`,GREEN,'🏦');
+};
+window.openEditAcc=function(id){
+  const a=S.accounts.find(x=>x.id===id);if(!a)return;
+  const to=Object.entries(TYPE_ICONS).map(([k,v])=>`<option value="${k}"${a.type===k?' selected':''}>${v} ${k.charAt(0).toUpperCase()+k.slice(1)}</option>`).join('');
+  openModal(`<div class="modal-title">Editar Cuenta</div>
+    <div class="field"><div class="field-label">Nombre</div><input id="ea-name" type="text" value="${a.name}"></div>
+    <div class="field"><div class="field-label">Tipo</div><select id="ea-type">${to}</select></div>
+    <div class="field"><div class="field-label">Saldo</div><input id="ea-bal" type="number" value="${a.balance}"></div>
+    <button class="btn-p btn-gold" onclick="confirmEditAcc(${id})">Guardar</button>`);
+};
+window.confirmEditAcc=function(id){
+  const name=el('ea-name')?.value?.trim(),type=el('ea-type')?.value||'otro',bal=parseFloat(el('ea-bal')?.value||0);
+  S.accounts=S.accounts.map(a=>a.id===id?{...a,name:name||a.name,type,balance:bal,icon:TYPE_ICONS[type]||'💳',color:TYPE_COLORS[type]||GOLD}:a);
+  save();closeModal();render();toast('Cuenta actualizada.',GOLD,'✓');
+};
+window.openAddTxModal=function(){
+  if(S.accounts.length===0){toast('Primero crea una cuenta.',GOLD,'🏦');return;}
+  const ao=S.accounts.map(a=>`<option value="${a.id}">${a.icon} ${a.name} — ${fmt(a.balance)}</option>`).join('');
+  const co=CATS_IN.map(c=>`<option value="${c}">${c}</option>`).join('');
+  openModal(`<div class="modal-title">⚡ Nuevo Movimiento</div>
+    <div class="type-sel">
+      <button class="type-btn" id="tt-ingreso" onclick="selTxType('ingreso')" style="background:rgba(74,222,128,0.22);border-color:${GREEN};color:${GREEN}">📥 ingreso</button>
+      <button class="type-btn" id="tt-gasto" onclick="selTxType('gasto')">📤 gasto</button>
+      <button class="type-btn" id="tt-transferencia" onclick="selTxType('transferencia')">🔄 transfer</button>
+    </div>
+    <div class="field"><div class="field-label">Cuenta</div><select id="tx-acc">${ao}</select></div>
+    <div class="field"><div class="field-label">Categoría</div><select id="tx-cat">${co}</select></div>
+    <div class="field"><div class="field-label">Monto</div><input id="tx-amt" type="number" placeholder="0"></div>
+    <div class="field"><div class="field-label">Descripción</div><input id="tx-desc" type="text" placeholder="Detalle opcional"></div>
+    <div class="field"><div class="field-label">Fecha</div><input id="tx-date" type="date" value="${today()}"></div>
+    <button class="btn-p btn-green" id="tx-sbtn" onclick="confirmAddTx()" style="color:#080808">Registrar</button>`,
+  ()=>{window._txType='ingreso';});
+};
+window.selTxType=function(t){
+  window._txType=t;
+  const cols={ingreso:GREEN,gasto:RED,transferencia:BLUE};
+  ['ingreso','gasto','transferencia'].forEach(x=>{
+    const b=el(`tt-${x}`);if(!b)return;
+    if(x===t){b.style.background=`rgba(${x==='ingreso'?'74,222,128':x==='gasto'?'230,57,70':'56,189,248'},0.22)`;b.style.borderColor=cols[t];b.style.color=cols[t];}
+    else{b.style.background='rgba(255,255,255,0.05)';b.style.borderColor='rgba(255,255,255,0.1)';b.style.color='rgba(255,255,255,0.4)';}
+  });
+  const cc=el('tx-cat');if(!cc)return;
+  cc.innerHTML=(t==='ingreso'?CATS_IN:t==='gasto'?CATS_OUT:[...CATS_IN,...CATS_OUT]).map(c=>`<option value="${c}">${c}</option>`).join('');
+  const sb=el('tx-sbtn');if(sb){sb.className=`btn-p btn-${t==='ingreso'?'green':t==='gasto'?'red':'teal'}`;sb.style.color='#080808';}
+};
+window.confirmAddTx=function(){
+  const t=window._txType||'ingreso',accId=parseInt(el('tx-acc')?.value||0),cat=el('tx-cat')?.value||'',amt=parseFloat(el('tx-amt')?.value||0),desc=el('tx-desc')?.value?.trim()||'',date=el('tx-date')?.value||today();
+  if(!amt||!accId){toast('Completa monto y cuenta.',RED,'⚠️');return;}
+  const tx={id:Date.now(),type:t,accountId:accId,category:cat,amount:amt,desc,date};
+  S.transactions.push(tx);
+  S.accounts=S.accounts.map(a=>a.id===accId?{...a,balance:a.balance+(t==='ingreso'?amt:t==='gasto'?-amt:0)}:a);
+  save();closeModal();checkAchievement('first_tx');
+  if(t==='ingreso'){const p=randOf(INCOME_PHRASES);toast(p.text,GREEN,p.icon);addXP(10,'Ingreso registrado');}
+  else{addXP(5,'Gasto registrado');}
+  render();
+};
+
+// ══════════════════════════════════════════════════════════════════════════════
+// GOALS
+// ══════════════════════════════════════════════════════════════════════════════
+function renderGoals(c){
+  const title=document.createElement('div');title.style.marginBottom='16px';
+  title.innerHTML=`<div class="serif" style="font-size:22px;font-weight:800;color:white">Metas Imperiales</div><div style="font-size:12px;color:rgba(255,255,255,0.35);margin-top:4px">Cada meta es un paso hacia tu millón.</div>`;
+  c.appendChild(title);
+
+  if(S.goals.length===0){
+    const es=document.createElement('div');es.className='card empty-state';es.style.marginBottom='14px';
+    es.innerHTML=`<div class="empty-icon">🎯</div><div class="empty-title">Sin metas todavía</div><div class="empty-sub">Define tu primer objetivo financiero</div>`;
+    c.appendChild(es);
+  } else {
+    S.goals.forEach((g,i)=>{
+      const p=pct(g.saved,g.target),rem=g.target-g.saved;
+      const gc=document.createElement('div');gc.className='card';gc.style.cssText='margin-bottom:12px;border-color:rgba(201,168,76,0.3);';
+      gc.innerHTML=`
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px">
+          <div style="display:flex;align-items:center;gap:12px">
+            <div style="width:50px;height:50px;border-radius:14px;background:rgba(201,168,76,0.12);border:1px solid rgba(201,168,76,0.4);display:flex;align-items:center;justify-content:center;font-size:24px">${g.icon}</div>
+            <div><div class="serif" style="font-size:16px;font-weight:700;color:white">${g.name}</div><div style="font-size:11px;color:rgba(255,255,255,0.35);margin-top:3px">${rem>0?`Faltan ${fmt(rem)}`:'✅ ¡Meta completada!'}</div></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <div class="serif" style="font-size:22px;font-weight:900;color:${GOLD}">${p}%</div>
+            <button class="btn-sm btn-sm-ghost" onclick="addToGoal(${g.id})">+</button>
+            <button class="btn-sm btn-sm-red" onclick="delGoal(${g.id})">✕</button>
+          </div>
+        </div>
+        <div style="display:flex;justify-content:space-between;margin-bottom:8px">
+          <span class="serif" style="font-size:12px;color:${GREEN};font-weight:700">${fmt(g.saved)}</span>
+          <span style="font-size:12px;color:rgba(255,255,255,0.3)">de ${fmt(g.target)}</span>
+        </div>
+        <div id="gbar-f-${g.id}"></div>
+        ${g.deadline?`<div style="font-size:10px;color:rgba(255,255,255,0.25);margin-top:8px">📅 Meta: ${new Date(g.deadline).toLocaleDateString('es-CO')}</div>`:''}`;
+      c.appendChild(gc);
+      const bw=el(`gbar-f-${g.id}`);if(bw)animBar(bw,p,GOLD,7,i*100);
+      if(p>=100)checkAchievement('goal_done');
+    });
+  }
+
+  const btn=document.createElement('button');btn.className='btn-p btn-gold';btn.textContent='+ Nueva Meta';btn.onclick=openAddGoalModal;
+  c.appendChild(btn);
+}
+
+window.delGoal=function(id){S.goals=S.goals.filter(g=>g.id!==id);save();render();toast('Meta eliminada.',RED,'✕');};
+window.addToGoal=function(id){
+  openModal(`<div class="modal-title">💰 Agregar Ahorro</div>
+    <div class="field"><div class="field-label">¿Cuánto vas a agregar?</div><input id="ag-amt" type="number" placeholder="0" autofocus></div>
+    <button class="btn-p btn-gold" onclick="confirmAddToGoal(${id})">Agregar</button>`);
+};
+window.confirmAddToGoal=function(id){
+  const amt=parseFloat(el('ag-amt')?.value||0);if(!amt)return;
+  S.goals=S.goals.map(g=>g.id===id?{...g,saved:Math.min(g.saved+amt,g.target)}:g);
+  save();closeModal();render();
+  addXP(20,'Ahorro a meta registrado');
+  const g=S.goals.find(g=>g.id===id);
+  if(g&&g.saved>=g.target)celebrate('🏆','¡Meta Completada!',g.name,300);
+};
+window.openAddGoalModal=function(){
+  openModal(`<div class="modal-title">🎯 Nueva Meta</div>
+    <div class="field"><div class="field-label">Nombre</div><input id="ng-name" type="text" placeholder="Ej: Moto nueva, Viaje, Negocio"></div>
+    <div class="field"><div class="field-label">Monto objetivo</div><input id="ng-target" type="number" placeholder="0"></div>
+    <div class="field"><div class="field-label">Ya tengo ahorrado</div><input id="ng-saved" type="number" placeholder="0"></div>
+    <div class="field"><div class="field-label">Fecha límite (opcional)</div><input id="ng-deadline" type="date"></div>
+    <div class="field"><div class="field-label">Ícono (emoji)</div><input id="ng-icon" type="text" placeholder="🎯" value="🎯"></div>
+    <button class="btn-p btn-gold" onclick="confirmAddGoal()">Crear Meta</button>`);
+};
+window.confirmAddGoal=function(){
+  const name=el('ng-name')?.value?.trim();if(!name){toast('Escribe un nombre.',GOLD,'⚠️');return;}
+  S.goals.push({id:Date.now(),name,target:parseFloat(el('ng-target')?.value||0),saved:parseFloat(el('ng-saved')?.value||0),deadline:el('ng-deadline')?.value||'',icon:el('ng-icon')?.value||'🎯'});
+  save();closeModal();render();checkAchievement('first_goal');addXP(30,'Meta creada');toast('Meta creada.',GOLD,'🎯');
+};
+
+// ══════════════════════════════════════════════════════════════════════════════
+// DISCIPLINE
+// ══════════════════════════════════════════════════════════════════════════════
+function renderDiscipline(c){
+  const done=S.habits.filter(h=>h.done).length;
+  const lvNum=Math.floor(S.totalXP/500)+1,xpInLv=S.totalXP%500;
+
+  const xpc=document.createElement('div');xpc.className='card';xpc.style.cssText='margin-bottom:14px;border-color:rgba(201,168,76,0.3);';
+  xpc.innerHTML=`
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px">
+      <div>
+        <div class="label">Disciplina XP</div>
+        <div class="serif" style="font-size:34px;font-weight:900;color:${GOLD}">${S.totalXP} XP</div>
+        <div style="font-size:11px;color:rgba(255,255,255,0.35)">Nivel ${lvNum} · ${500-xpInLv} XP para siguiente</div>
+      </div>
+      <div style="text-align:right">
+        ${S.streak>0?`<div style="font-size:11px;color:${ORANGE};margin-bottom:4px">🔥 ${S.streak} días de racha</div>`:''}
+        <div style="font-size:11px;color:rgba(255,255,255,0.35)">Hoy</div>
+        <div class="serif" style="font-size:28px;font-weight:800;color:white">${done}/${S.habits.length}</div>
+      </div>
+    </div>
+    <div id="xp-bar"></div>`;
+  c.appendChild(xpc);
+  const bw=el('xp-bar');if(bw)animBar(bw,(xpInLv/500)*100,GOLD);
+
+  // Habits
+  S.habits.forEach(h=>{
+    const hc=document.createElement('div');hc.className='card clickable';hc.style.cssText=`margin-bottom:10px;${h.done?`border-color:${GOLD}55;box-shadow:0 0 28px ${GOLD}08;`:''}`;
+    hc.innerHTML=`<div style="display:flex;align-items:center;gap:14px">
+      <div class="habit-check ${h.done?'done':''}">${h.done?'✓':h.icon}</div>
+      <div style="flex:1">
+        <div class="serif" style="font-size:15px;font-weight:700;color:${h.done?GOLD:'white'};transition:color 0.3s">${h.name}</div>
+        <div style="display:flex;gap:12px;margin-top:4px">
+          <span style="font-size:11px;color:rgba(255,255,255,0.32)">+${h.xp} XP</span>
+          ${h.streak>0?`<span style="font-size:11px;color:${ORANGE}">🔥 ${h.streak} días</span>`:''}
+        </div>
+      </div>
+    </div>`;
+    hc.onclick=()=>toggleHabit(h.id);
+    c.appendChild(hc);
+  });
+
+  // War mode
+  const wc=document.createElement('div');wc.className='card';wc.style.cssText=`padding:18px 20px;${S.warMode?`border-color:${RED}44;box-shadow:0 0 28px ${RED}08;`:''}`;
+  if(S.warMode){
+    wc.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:center">
+      <div><div class="serif" style="font-size:16px;font-weight:800;color:${RED}">⚔️ Modo Guerra ACTIVO</div><div style="font-size:12px;color:rgba(255,255,255,0.35);margin-top:2px">Enfoque total en eliminar deudas</div></div>
+      <button class="btn-sm btn-sm-ghost" onclick="deactivateWar()">Desactivar</button>
+    </div>
+    <div style="border-top:1px solid ${RED}33;padding-top:18px;margin-top:16px;text-align:center">
+      <div style="font-size:10px;color:rgba(255,255,255,0.28);letter-spacing:2px;text-transform:uppercase">Cuenta Regresiva</div>
+      <div class="serif" style="font-size:56px;font-weight:900;color:${RED};letter-spacing:-3px;line-height:1.1">${S.warDaysLeft}</div>
+      <div style="font-size:12px;color:rgba(255,255,255,0.4)">días · Deuda: ${fmt(S.warDebt)}</div>
+      <div style="margin-top:14px;background:rgba(230,57,70,0.1);border:1px solid rgba(230,57,70,0.28);border-radius:12px;padding:12px 14px;font-size:13px;color:${RED};line-height:1.6;font-style:italic">"Cada peso que no gastas en ocio es un misil directo a tu deuda. El dolor de hoy es la libertad de mañana."</div>
+    </div>`;
+  } else {
+    wc.innerHTML=`<div style="margin-bottom:16px"><div class="serif" style="font-size:16px;font-weight:800;color:white">⚔️ Modo Guerra</div><div style="font-size:12px;color:rgba(255,255,255,0.35);margin-top:2px">Enfoque máximo para eliminar deudas</div></div>
+    <div class="field"><div class="field-label">Deuda total a eliminar</div><input id="wd-debt" type="number" placeholder="0"></div>
+    <div class="field"><div class="field-label">Días para lograrlo</div><input id="wd-days" type="number" placeholder="90"></div>
+    <button class="btn-p btn-red" style="color:white" onclick="activateWar()">⚔️ Activar Modo Guerra</button>`;
+  }
+  c.appendChild(wc);
+
+  // Impulse history
+  if(S.impulseChecks.length>0){
+    const ih=document.createElement('div');ih.className='card';ih.style.marginTop='12px';
+    ih.innerHTML=`<div class="sec-title">Historial Anti-Impulso</div>`;
+    [...S.impulseChecks].reverse().slice(0,3).forEach(ic=>{
+      const row=document.createElement('div');row.style.cssText='display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.04);';
+      row.innerHTML=`<div><div style="font-size:13px;color:rgba(255,255,255,0.85)">${ic.item}</div><div style="font-size:10px;color:rgba(255,255,255,0.28)">${fmt(ic.price)} · ${new Date(ic.date).toLocaleDateString('es-CO')}</div></div><div class="serif" style="font-size:12px;color:${ic.avoided?GREEN:RED}">${ic.avoided?'✅ Evitado':'💳 Comprado'}</div>`;
+      ih.appendChild(row);
+    });
+    c.appendChild(ih);
+  }
+}
+
+window.toggleHabit=function(id){
+  S.habits=S.habits.map(h=>{
+    if(h.id!==id)return h;
+    const done=!h.done;
+    if(done)S.totalXP=Math.max(0,S.totalXP+h.xp);
+    else S.totalXP=Math.max(0,S.totalXP-h.xp);
+    return{...h,done,streak:done?h.streak+1:Math.max(0,h.streak-1)};
+  });
+  const allDone=S.habits.every(h=>h.done);
+  if(allDone)checkAchievement('habits_all');
+  save();render();
+};
+window.activateWar=function(){
+  const debt=parseFloat(el('wd-debt')?.value||0),days=parseInt(el('wd-days')?.value||0);
+  if(!debt||!days){toast('Completa ambos campos.',RED,'⚠️');return;}
+  S.warMode=true;S.warDebt=debt;S.warDaysLeft=days;save();render();toast('⚔️ Modo Guerra activado.',RED,'⚔️');
+};
+window.deactivateWar=function(){S.warMode=false;S.warDebt=0;S.warDaysLeft=0;save();render();checkAchievement('war_win');toast('Modo Guerra completado.',GOLD,'✓');};
+
+// ══════════════════════════════════════════════════════════════════════════════
+// ENTREPRENEUR
+// ══════════════════════════════════════════════════════════════════════════════
+function renderEntrepreneur(c){
+  const title=document.createElement('div');title.style.marginBottom='16px';
+  title.innerHTML=`<div class="serif" style="font-size:22px;font-weight:800;color:white">🚀 Modo Emprendedor</div><div style="font-size:12px;color:rgba(255,255,255,0.35);margin-top:4px">Controla tus ventas, costos y ganancias reales.</div>`;
+  c.appendChild(title);
+
+  const totalSales=S.sales.reduce((s,v)=>s+v.amount,0);
+  const totalCost=S.sales.reduce((s,v)=>s+v.cost,0);
+  const totalProfit=totalSales-totalCost;
+  const mSales=S.sales.filter(v=>{const d=new Date(v.date);return d.getMonth()===NOW.getMonth()&&d.getFullYear()===NOW.getFullYear();});
+  const mRev=mSales.reduce((s,v)=>s+v.amount,0);
+  const mCost=mSales.reduce((s,v)=>s+v.cost,0);
+  const mProfit=mRev-mCost;
+
+  const sc=document.createElement('div');sc.className='card';sc.style.cssText='margin-bottom:14px;border-color:rgba(0,191,165,0.3);box-shadow:0 0 28px rgba(0,191,165,0.05);';
+  sc.innerHTML=`<div class="label">Resumen del Negocio — Este Mes</div>
+    <div class="grid-3" style="margin-top:10px">
+      <div style="text-align:center"><div style="font-size:9px;color:rgba(255,255,255,0.3);text-transform:uppercase;margin-bottom:4px">Ventas</div><div class="serif" style="font-size:18px;font-weight:800;color:${TEAL}">${fmt(mRev)}</div></div>
+      <div style="text-align:center"><div style="font-size:9px;color:rgba(255,255,255,0.3);text-transform:uppercase;margin-bottom:4px">Costos</div><div class="serif" style="font-size:18px;font-weight:800;color:${RED}">${fmt(mCost)}</div></div>
+      <div style="text-align:center"><div style="font-size:9px;color:rgba(255,255,255,0.3);text-transform:uppercase;margin-bottom:4px">Ganancia</div><div class="serif" style="font-size:18px;font-weight:800;color:${mProfit>=0?GREEN:RED}">${fmt(mProfit)}</div></div>
+    </div>
+    ${mRev>0?`<div style="margin-top:14px"><div style="display:flex;justify-content:space-between;margin-bottom:6px"><span style="font-size:10px;color:rgba(255,255,255,0.3)">Margen de ganancia</span><span style="font-size:10px;color:${TEAL}">${Math.round((mProfit/mRev)*100)}%</span></div><div id="profit-bar"></div></div>`:''}`;
+  c.appendChild(sc);
+  if(mRev>0){const bw=el('profit-bar');if(bw)animBar(bw,Math.max(0,(mProfit/mRev)*100),mProfit>=0?TEAL:RED);}
+
+  const btn=document.createElement('button');btn.className='btn-p btn-teal';btn.style.cssText='color:#080808;margin-bottom:14px';btn.textContent='📦 Registrar Venta';btn.onclick=openAddSale;
+  c.appendChild(btn);
+
+  if(S.sales.length===0){
+    const es=document.createElement('div');es.className='card empty-state';
+    es.innerHTML=`<div class="empty-icon">📦</div><div class="empty-title">Sin ventas registradas</div><div class="empty-sub">Registra tu primera venta para comenzar</div>`;
+    c.appendChild(es);
+  } else {
+    const sl=document.createElement('div');sl.className='card';
+    sl.innerHTML=`<div class="sec-title">Historial de Ventas</div>`;
+    [...S.sales].reverse().forEach(v=>{
+      const profit=v.amount-v.cost,margin=v.amount>0?Math.round((profit/v.amount)*100):0;
+      const row=document.createElement('div');row.style.cssText='padding:11px 0;border-bottom:1px solid rgba(255,255,255,0.04);display:flex;justify-content:space-between;align-items:center;';
+      row.innerHTML=`<div><div style="font-size:13px;color:rgba(255,255,255,0.85)">${v.product}</div><div style="font-size:10px;color:rgba(255,255,255,0.28)">Costo: ${fmt(v.cost)} · Margen: ${margin}% · ${new Date(v.date).toLocaleDateString('es-CO')}</div>${v.customer?`<div style="font-size:10px;color:rgba(0,191,165,0.7)">👤 ${v.customer}</div>`:''}</div><div style="text-align:right"><div class="serif" style="font-size:14px;font-weight:700;color:${TEAL}">${fmt(v.amount)}</div><div style="font-size:11px;color:${profit>=0?GREEN:RED}">${profit>=0?'+':''}${fmt(profit)}</div></div>`;
+      sl.appendChild(row);
+    });
+    c.appendChild(sl);
+  }
+
+  // Total summary
+  if(S.sales.length>0){
+    const ts=document.createElement('div');ts.className='card';ts.style.cssText='margin-top:10px;border-color:rgba(0,191,165,0.2);';
+    ts.innerHTML=`<div class="sec-title">Total Acumulado</div>
+      <div class="grid-3">
+        <div style="text-align:center"><div style="font-size:9px;color:rgba(255,255,255,0.3);text-transform:uppercase;margin-bottom:4px">Total Ventas</div><div class="serif" style="font-size:15px;font-weight:800;color:${TEAL}">${fmt(totalSales)}</div></div>
+        <div style="text-align:center"><div style="font-size:9px;color:rgba(255,255,255,0.3);text-transform:uppercase;margin-bottom:4px">Total Costos</div><div class="serif" style="font-size:15px;font-weight:800;color:${RED}">${fmt(totalCost)}</div></div>
+        <div style="text-align:center"><div style="font-size:9px;color:rgba(255,255,255,0.3);text-transform:uppercase;margin-bottom:4px">Ganancia Total</div><div class="serif" style="font-size:15px;font-weight:800;color:${totalProfit>=0?GREEN:RED}">${fmt(totalProfit)}</div></div>
+      </div>`;
+    c.appendChild(ts);
+  }
+}
+
+window.openAddSale=function(){
+  openModal(`<div class="modal-title">📦 Nueva Venta</div>
+    <div class="field"><div class="field-label">Producto / Servicio</div><input id="sv-prod" type="text" placeholder="¿Qué vendiste?"></div>
+    <div class="field"><div class="field-label">Precio de venta</div><input id="sv-amt" type="number" placeholder="0"></div>
+    <div class="field"><div class="field-label">Costo / inversión</div><input id="sv-cost" type="number" placeholder="0"></div>
+    <div class="field"><div class="field-label">Cliente (opcional)</div><input id="sv-cust" type="text" placeholder="Nombre del cliente"></div>
+    <div class="field"><div class="field-label">Fecha</div><input id="sv-date" type="date" value="${today()}"></div>
+    <button class="btn-p btn-teal" style="color:#080808" onclick="confirmAddSale()">Registrar Venta</button>`);
+};
+window.confirmAddSale=function(){
+  const prod=el('sv-prod')?.value?.trim();if(!prod){toast('Describe qué vendiste.',TEAL,'⚠️');return;}
+  const amt=parseFloat(el('sv-amt')?.value||0),cost=parseFloat(el('sv-cost')?.value||0);
+  S.sales.push({id:Date.now(),product:prod,amount:amt,cost,customer:el('sv-cust')?.value?.trim()||'',date:el('sv-date')?.value||today(),status:'completado'});
+  save();closeModal();render();checkAchievement('first_sale');addXP(15,'Venta registrada');toast('Venta registrada. 🚀',TEAL,'📦');
+};
+
+// ══════════════════════════════════════════════════════════════════════════════
+// ACADEMY
+// ══════════════════════════════════════════════════════════════════════════════
+function renderAcademy(c){
+  const title=document.createElement('div');title.style.marginBottom='16px';
+  title.innerHTML=`<div class="serif" style="font-size:22px;font-weight:800;color:white">📚 Academia Financiera</div><div style="font-size:12px;color:rgba(255,255,255,0.35);margin-top:4px">${S.completedLessons.length}/${ACADEMY_CONTENT.length} lecciones completadas</div>`;
+  c.appendChild(title);
+
+  const prog=document.createElement('div');prog.className='card';prog.style.marginBottom='14px';
+  prog.innerHTML=`<div style="display:flex;justify-content:space-between;margin-bottom:8px"><span style="font-size:12px;color:rgba(255,255,255,0.5)">Progreso general</span><span class="xp-badge">⚡ ${S.completedLessons.length*35} XP ganados</span></div><div id="acad-bar"></div>`;
+  c.appendChild(prog);
+  const bw=el('acad-bar');if(bw)animBar(bw,pct(S.completedLessons.length,ACADEMY_CONTENT.length),TEAL);
+
+  const cats=[...new Set(ACADEMY_CONTENT.map(l=>l.cat))];
+  cats.forEach(cat=>{
+    const catTitle=document.createElement('div');catTitle.style.cssText='font-size:11px;color:rgba(255,255,255,0.4);letter-spacing:1.5px;text-transform:uppercase;margin:16px 0 8px';catTitle.textContent=cat;
+    c.appendChild(catTitle);
+    ACADEMY_CONTENT.filter(l=>l.cat===cat).forEach(lesson=>{
+      const done=S.completedLessons.includes(lesson.id);
+      const lc=document.createElement('div');lc.className='reel-card';lc.style.marginBottom='10px';
+      lc.innerHTML=`<div class="reel-thumb" style="background:${done?'rgba(0,191,165,0.1)':'rgba(255,255,255,0.03)'}">${lesson.emoji}</div>
+        <div style="padding:14px">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px">
+            <div class="serif" style="font-size:14px;font-weight:700;color:white;flex:1;margin-right:8px">${lesson.title}</div>
+            ${done?`<div style="font-size:16px">✅</div>`:`<div class="xp-badge">+${lesson.xp} XP</div>`}
+          </div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.45);line-height:1.5;margin-bottom:10px">${lesson.desc}</div>
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <span style="font-size:10px;color:rgba(255,255,255,0.3)">⏱ ${lesson.duration}</span>
+            <button class="btn-sm ${done?'btn-sm-ghost':'btn-p btn-teal'}" style="${done?'':'color:#080808;padding:6px 14px;'}" onclick="openLesson(${lesson.id})">${done?'Releer':'Leer →'}</button>
+          </div>
+        </div>`;
+      c.appendChild(lc);
+    });
+  });
+}
+
+window.openLesson=function(id){
+  const l=ACADEMY_CONTENT.find(x=>x.id===id);if(!l)return;
+  const done=S.completedLessons.includes(id);
+  openModal(`
+    <div style="text-align:center;margin-bottom:20px">
+      <div style="font-size:52px;margin-bottom:12px">${l.emoji}</div>
+      <div style="font-size:10px;color:${TEAL};letter-spacing:2px;text-transform:uppercase;margin-bottom:8px">${l.cat}</div>
+      <div class="serif modal-title" style="margin:0;font-size:18px">${l.title}</div>
+    </div>
+    <div style="background:rgba(0,191,165,0.06);border:1px solid rgba(0,191,165,0.2);border-radius:14px;padding:18px;margin-bottom:20px;font-size:14px;color:rgba(255,255,255,0.85);line-height:1.8">${l.content}</div>
+    ${!done?`<button class="btn-p btn-teal" style="color:#080808" onclick="completeLesson(${id})">✓ Lección Completada (+${l.xp} XP)</button>`:`<div style="text-align:center;color:${GREEN};font-size:13px">✅ Ya completaste esta lección</div>`}`);
+};
+window.completeLesson=function(id){
+  if(!S.completedLessons.includes(id)){S.completedLessons.push(id);}
+  const l=ACADEMY_CONTENT.find(x=>x.id===id);
+  save();closeModal();addXP(l?.xp||30,'Lección completada');render();toast('¡Lección completada!',TEAL,'📚');
+};
+
+// ══════════════════════════════════════════════════════════════════════════════
+// CALENDAR
+// ══════════════════════════════════════════════════════════════════════════════
+function renderCalendar(c){
+  const byDay={};
+  S.transactions.forEach(tx=>{
+    const d=new Date(tx.date);
+    if(d.getFullYear()===calYear&&d.getMonth()===calMonth){
+      const k=d.getDate();
+      if(!byDay[k])byDay[k]={income:0,expenses:0,txs:[]};
+      if(tx.type==='ingreso')byDay[k].income+=tx.amount;
+      if(tx.type==='gasto')byDay[k].expenses+=tx.amount;
+      byDay[k].txs.push(tx);
+    }
+  });
+  const mIn=Object.values(byDay).reduce((s,d)=>s+d.income,0);
+  const mOut=Object.values(byDay).reduce((s,d)=>s+d.expenses,0);
+  const first=new Date(calYear,calMonth,1).getDay();
+  const days=new Date(calYear,calMonth+1,0).getDate();
+
+  const nav=document.createElement('div');nav.style.cssText='display:flex;justify-content:space-between;align-items:center;margin-bottom:14px';
+  nav.innerHTML=`<button class="btn-sm btn-sm-ghost" style="width:38px;height:38px;font-size:20px;border-radius:10px" onclick="calNav(-1)">‹</button><div style="text-align:center"><div class="serif" style="font-size:20px;font-weight:800;color:white">${FULL_MONTHS[calMonth]}</div><div style="font-size:11px;color:rgba(255,255,255,0.3)">${calYear}</div></div><button class="btn-sm btn-sm-ghost" style="width:38px;height:38px;font-size:20px;border-radius:10px" onclick="calNav(1)">›</button>`;
+  c.appendChild(nav);
+
+  const sc=document.createElement('div');sc.className='grid-3';sc.style.marginBottom='14px';
+  [{l:'Ingresos',v:fmt(mIn),col:GREEN},{l:'Gastos',v:fmt(mOut),col:RED},{l:'Flujo',v:fmt(mIn-mOut),col:mIn-mOut>=0?GREEN:RED}].forEach(s=>{
+    const card=document.createElement('div');card.className='card';card.style.cssText='padding:12px;text-align:center;margin-bottom:0';
+    card.innerHTML=`<div class="serif" style="font-size:13px;font-weight:800;color:${s.col}">${s.v}</div><div style="font-size:9px;color:rgba(255,255,255,0.28);margin-top:2px;text-transform:uppercase">${s.l}</div>`;
+    sc.appendChild(card);
+  });
+  c.appendChild(sc);
+
+  const calCard=document.createElement('div');calCard.className='card';calCard.style.marginBottom='14px';
+  const hdrGrid=document.createElement('div');hdrGrid.className='cal-grid';hdrGrid.style.marginBottom='10px';
+  ['D','L','M','X','J','V','S'].forEach(d=>{const ch=document.createElement('div');ch.className='cal-hdr';ch.textContent=d;hdrGrid.appendChild(ch);});
+  calCard.appendChild(hdrGrid);
+  const grid=document.createElement('div');grid.className='cal-grid';
+  for(let i=0;i<first;i++)grid.appendChild(document.createElement('div'));
+  for(let d=1;d<=days;d++){
+    const data=byDay[d];const isToday=d===NOW.getDate()&&calMonth===NOW.getMonth()&&calYear===NOW.getFullYear();const isSel=d===calSel;
+    const cell=document.createElement('div');cell.className='cal-day'+(isToday?' today':'')+(isSel?' selected':'');
+    cell.innerHTML=`<span>${d}</span>${(data?.income||data?.expenses)?`<div class="cal-dots">${data.income>0?`<div class="cal-dot" style="background:${GREEN}"></div>`:''}${data.expenses>0?`<div class="cal-dot" style="background:${RED}"></div>`:''}</div>`:''}`;
+    cell.onclick=()=>{calSel=(calSel===d)?null:d;render();};
+    grid.appendChild(cell);
+  }
+  calCard.appendChild(grid);c.appendChild(calCard);
+
+  if(calSel){
+    const sc2=document.createElement('div');sc2.className='card';sc2.style.cssText='border-color:rgba(201,168,76,0.3);';
+    sc2.innerHTML=`<div class="serif" style="font-size:14px;font-weight:800;color:${GOLD};margin-bottom:14px">${calSel} de ${FULL_MONTHS[calMonth]}</div>`;
+    const txs=byDay[calSel]?.txs||[];
+    if(!txs.length){const em=document.createElement('div');em.style.cssText='font-size:13px;color:rgba(255,255,255,0.28);text-align:center;padding:12px 0';em.textContent='Sin movimientos este día';sc2.appendChild(em);}
+    else txs.forEach(tx=>sc2.appendChild(buildTxRow(tx)));
+    c.appendChild(sc2);
+  }
+}
+
+window.calNav=function(dir){calMonth+=dir;if(calMonth>11){calMonth=0;calYear++;}else if(calMonth<0){calMonth=11;calYear--;}calSel=null;render();};
+
+// ══════════════════════════════════════════════════════════════════════════════
+// AI — MILLY
+// ══════════════════════════════════════════════════════════════════════════════
+function renderAI(c){
+  const total=S.accounts.reduce((s,a)=>s+a.balance,0);
+  const mTx=S.transactions.filter(t=>{const d=new Date(t.date);return d.getMonth()===NOW.getMonth()&&d.getFullYear()===NOW.getFullYear();});
+  const mIn=mTx.filter(t=>t.type==='ingreso').reduce((s,t)=>s+t.amount,0);
+  const mOut=mTx.filter(t=>t.type==='gasto').reduce((s,t)=>s+t.amount,0);
+  const mSales=S.sales.filter(v=>{const d=new Date(v.date);return d.getMonth()===NOW.getMonth()&&d.getFullYear()===NOW.getFullYear();});
+  const mRev=mSales.reduce((s,v)=>s+v.amount,0);
+
+  const title=document.createElement('div');title.style.marginBottom='14px';
+  title.innerHTML=`<div style="display:flex;align-items:center;gap:10px"><div style="width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,${GOLD},${TEAL});display:flex;align-items:center;justify-content:center;font-size:18px;animation:glow 2s infinite">🧠</div><div><div class="serif" style="font-size:22px;font-weight:800;color:white">MILLY IA</div><div style="font-size:12px;color:rgba(255,255,255,0.35)">Tu mentora financiera personal · Análisis en tiempo real</div></div></div>`;
+  c.appendChild(title);
+
+  if(total>0||mIn>0){
+    const insDiv=document.createElement('div');insDiv.style.marginBottom='14px';
+    [
+      {icon:'💡',text:`Este mes: ${fmt(mIn)} ingresados, ${fmt(mOut)} gastados. Flujo: ${fmt(mIn-mOut)}.`,color:mIn-mOut>=0?GREEN:RED},
+      {icon:'🏦',text:`Patrimonio total: ${fmt(total)} en ${S.accounts.length} cuenta${S.accounts.length!==1?'s':''}.`,color:BLUE},
+      {icon:'📈',text:`Proyección 6 meses al ritmo actual: +${fmt(Math.max(mIn-mOut,0)*6)}.`,color:GOLD},
+      ...(mRev>0?[{icon:'🚀',text:`Ventas del negocio este mes: ${fmt(mRev)}.`,color:TEAL}]:[]),
+    ].forEach(ins=>{
+      const ic=document.createElement('div');ic.className='card';ic.style.cssText='padding:10px 14px;margin-bottom:8px;display:flex;align-items:center;gap:10px;';
+      ic.innerHTML=`<span style="font-size:18px">${ins.icon}</span><span style="font-size:12px;color:${ins.color};line-height:1.45">${ins.text}</span>`;
+      insDiv.appendChild(ic);
+    });
+    c.appendChild(insDiv);
+  }
+
+  // Quick prompts
+  const qp=document.createElement('div');qp.style.cssText='display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px';
+  ['¿Cómo mejorar mi ahorro?','Analiza mis gastos','Plan para salir de deudas','¿Cómo aumentar mis ingresos?'].forEach(q=>{
+    const btn=document.createElement('button');
+    btn.style.cssText=`background:rgba(0,191,165,0.1);border:1px solid rgba(0,191,165,0.3);border-radius:20px;padding:6px 12px;color:${TEAL};font-size:11px;cursor:pointer;font-family:'DM Sans',sans-serif;`;
+    btn.textContent=q;btn.onclick=()=>{const inp=el('ai-inp');if(inp){inp.value=q;sendAIMsg();}};
+    qp.appendChild(btn);
+  });
+  c.appendChild(qp);
+
+  const chatCard=document.createElement('div');chatCard.className='card';chatCard.style.padding='14px';
+  const msgArea=document.createElement('div');msgArea.id='ai-msgs';msgArea.style.cssText='overflow-y:auto;display:flex;flex-direction:column;gap:12px;margin-bottom:14px;max-height:400px;min-height:120px';
+  AI_MSGS.forEach(m=>msgArea.appendChild(buildAIMsg(m)));
+  chatCard.appendChild(msgArea);
+  const inputRow=document.createElement('div');inputRow.style.cssText='display:flex;gap:8px';
+  inputRow.innerHTML=`<input id="ai-inp" type="text" placeholder="Pregúntale a MILLY..." style="flex:1"><button id="ai-send" onclick="sendAIMsg()" style="width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,${GOLD},${GOLD}88);border:none;color:#080808;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0">↑</button>`;
+  chatCard.appendChild(inputRow);c.appendChild(chatCard);
+  el('ai-inp')?.addEventListener('keydown',e=>{if(e.key==='Enter')sendAIMsg();});
+  scrollAI();
+}
+
+function buildAIMsg(m){
+  const wrap=document.createElement('div');wrap.style.cssText=`display:flex;justify-content:${m.role==='user'?'flex-end':'flex-start'}`;
+  if(m.role==='ai'){const av=document.createElement('div');av.style.cssText=`width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,${GOLD},${TEAL});display:flex;align-items:center;justify-content:center;font-size:12px;margin-right:8px;flex-shrink:0;margin-top:2px`;av.textContent='🧠';wrap.appendChild(av);}
+  const bubble=document.createElement('div');
+  bubble.style.cssText=`max-width:80%;padding:10px 14px;border-radius:${m.role==='user'?'16px 16px 4px 16px':'16px 16px 16px 4px'};background:${m.role==='user'?`${GOLD}18`:'rgba(255,255,255,0.04)'};border:1px solid ${m.role==='user'?`${GOLD}44`:'rgba(255,255,255,0.07)'};font-size:13px;color:rgba(255,255,255,0.85);line-height:1.6`;
+  bubble.textContent=m.text;wrap.appendChild(bubble);return wrap;
+}
+function scrollAI(){const ma=el('ai-msgs');if(ma)setTimeout(()=>ma.scrollTop=ma.scrollTop+9999,50);}
+
+window.sendAIMsg=async function(){
+  if(AI_LOADING)return;
+  const inp=el('ai-inp');const msg=inp?.value?.trim();if(!msg)return;
+  inp.value='';AI_MSGS.push({role:'user',text:msg});
+  const ma=el('ai-msgs');if(ma){ma.appendChild(buildAIMsg({role:'user',text:msg}));scrollAI();}
+  AI_LOADING=true;
+  const ld=document.createElement('div');ld.id='ai-ld';ld.style.cssText='display:flex;align-items:center;gap:8px';
+  ld.innerHTML=`<div style="width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,${GOLD},${TEAL});display:flex;align-items:center;justify-content:center;font-size:12px">🧠</div><div style="display:flex;gap:4px">${[0,1,2].map(n=>`<div style="width:6px;height:6px;border-radius:3px;background:${GOLD};animation:pulse 1.2s ${n*0.2}s infinite"></div>`).join('')}</div>`;
+  if(ma)ma.appendChild(ld);scrollAI();
+
+  const total=S.accounts.reduce((s,a)=>s+a.balance,0);
+  const mTx=S.transactions.filter(t=>{const d=new Date(t.date);return d.getMonth()===NOW.getMonth()&&d.getFullYear()===NOW.getFullYear();});
+  const mIn=mTx.filter(t=>t.type==='ingreso').reduce((s,t)=>s+t.amount,0);
+  const mOut=mTx.filter(t=>t.type==='gasto').reduce((s,t)=>s+t.amount,0);
+  const mSales=S.sales.filter(v=>{const d=new Date(v.date);return d.getMonth()===NOW.getMonth()&&d.getFullYear()===NOW.getFullYear();});
+  const mRev=mSales.reduce((s,v)=>s+v.amount,0);
+  const ctx=`Eres MILLY, mentora financiera IA de IMPERIO. Personalidad: estratégica, directa, motivadora, empática. Sin asteriscos ni markdown. En español latino. Máximo 3 párrafos cortos.\n\nDatos del usuario:\n- Patrimonio: ${fmt(total)}\n- Ingresos mes: ${fmt(mIn)}\n- Gastos mes: ${fmt(mOut)}\n- Flujo neto: ${fmt(mIn-mOut)}\n- Score financiero: ${S.financialScore}/1000\n- Nivel: ${getLevel(S.totalXP).name}\n- XP total: ${S.totalXP}\n- Racha: ${S.streak} días\n- Ventas del negocio este mes: ${fmt(mRev)}\n- Metas activas: ${S.goals.length}\n- Cuentas: ${S.accounts.length>0?S.accounts.map(a=>`${a.name}: ${fmt(a.balance)}`).join(', '):'Ninguna registrada'}`;
+  try{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:600,system:ctx,messages:AI_MSGS.filter(m=>m.role==='user'||m.role==='assistant').slice(-10).map(m=>({role:m.role==='ai'?'assistant':m.role,content:m.text}))})});
+    const data=await res.json();
+    const reply=data.content?.map(b=>b.text||'').join('')||'Error al conectar.';
+    AI_MSGS.push({role:'ai',text:reply});
+    el('ai-ld')?.remove();if(ma)ma.appendChild(buildAIMsg({role:'ai',text:reply}));
+  }catch(e){
+    el('ai-ld')?.remove();const err='Error de conexión. Verifica tu red.';AI_MSGS.push({role:'ai',text:err});if(ma)ma.appendChild(buildAIMsg({role:'ai',text:err}));
+  }
+  AI_LOADING=false;scrollAI();
+};
+
+// ══════════════════════════════════════════════════════════════════════════════
+// PROFILE
+// ══════════════════════════════════════════════════════════════════════════════
+function renderProfile(c){
+  const total=S.accounts.reduce((s,a)=>s+a.balance,0);
+  const lv=getLevel(S.totalXP),nxt=LEVELS[LEVELS.indexOf(lv)+1];
+  const score=S.financialScore;
+
+  // Profile hero
+  const ph=document.createElement('div');ph.className='card';ph.style.cssText=`margin-bottom:14px;border-color:${lv.color}44;text-align:center;padding:24px;`;
+  ph.innerHTML=`<div style="font-size:64px;margin-bottom:12px">${lv.icon}</div>
+    <div class="serif" style="font-size:24px;font-weight:900;color:white;margin-bottom:4px">${lv.name}</div>
+    <div class="xp-badge" style="margin:0 auto 12px">⚡ ${S.totalXP} XP Total</div>
+    ${S.streak>0?`<div style="font-size:13px;color:${ORANGE};margin-bottom:12px">🔥 ${S.streak} días de racha</div>`:''}
+    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(0,191,165,0.1);border:1px solid rgba(0,191,165,0.3);border-radius:20px;padding:6px 16px;font-size:13px;color:${TEAL}">Score Financiero: <span class="serif" style="font-size:18px;font-weight:900">${score}</span><span style="font-size:11px;color:rgba(255,255,255,0.4)">/1000</span></div>
+    ${nxt?`<div style="margin-top:14px"><div id="pbar"></div><div style="font-size:10px;color:rgba(255,255,255,0.25);margin-top:5px">${pct(S.totalXP,nxt.min)}% hacia ${nxt.name}</div></div>`:''}`;
+  c.appendChild(ph);
+  if(nxt){const bw=el('pbar');if(bw)animBar(bw,pct(S.totalXP,nxt.min),lv.color);}
+
+  // Stats grid
+  const stats=document.createElement('div');stats.className='grid-3';stats.style.marginBottom='14px';
+  [
+    {l:'Transacciones',v:S.transactions.length,icon:'💸'},
+    {l:'Metas',v:S.goals.length,icon:'🎯'},
+    {l:'Ventas',v:S.sales.length,icon:'📦'},
+  ].forEach(s=>{
+    const card=document.createElement('div');card.className='card';card.style.cssText='padding:14px;text-align:center;margin-bottom:0';
+    card.innerHTML=`<div style="font-size:20px;margin-bottom:6px">${s.icon}</div><div class="serif" style="font-size:20px;font-weight:800;color:white">${s.v}</div><div style="font-size:9px;color:rgba(255,255,255,0.3);text-transform:uppercase;margin-top:3px">${s.l}</div>`;
+    stats.appendChild(card);
+  });
+  c.appendChild(stats);
+
+  // Achievements
+  const achDiv=document.createElement('div');achDiv.className='card';achDiv.style.marginBottom='14px';
+  achDiv.innerHTML=`<div class="sec-title">Logros (${S.earnedAchievements.length}/${ACHIEVEMENTS.length})</div>`;
+  const achGrid=document.createElement('div');achGrid.style.cssText='display:grid;grid-template-columns:repeat(3,1fr);gap:8px;';
+  ACHIEVEMENTS.forEach(ach=>{
+    const earned=S.earnedAchievements.includes(ach.id);
+    const badge=document.createElement('div');badge.className=`achievement-badge${earned?' earned':''}`;
+    badge.title=`${ach.name}: ${ach.desc}`;
+    badge.innerHTML=`<div style="font-size:28px;filter:${earned?'none':'grayscale(1)'};opacity:${earned?1:0.3}">${ach.icon}</div><div style="font-size:10px;color:${earned?GOLD:'rgba(255,255,255,0.3)'};text-align:center;font-weight:${earned?'700':'400'};line-height:1.3">${ach.name}</div>${earned?`<div class="xp-badge" style="font-size:9px">+${ach.xp} XP</div>`:''}`;
+    badge.onclick=()=>{if(earned)toast(`${ach.name}: ${ach.desc}`,GOLD,ach.icon);else toast(`Completa: ${ach.desc}`,GOLD,'🔒');};
+    achGrid.appendChild(badge);
+  });
+  achDiv.appendChild(achGrid);c.appendChild(achDiv);
+
+  // Levels roadmap
+  const lvDiv=document.createElement('div');lvDiv.className='card';lvDiv.style.marginBottom='14px';
+  lvDiv.innerHTML=`<div class="sec-title">Mapa de Niveles</div>`;
+  LEVELS.forEach((l,i)=>{
+    const reached=S.totalXP>=l.min;
+    const row=document.createElement('div');row.style.cssText='display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.04);';
+    row.innerHTML=`<div style="width:36px;height:36px;border-radius:10px;background:${reached?l.color+'22':'rgba(255,255,255,0.03)'};border:1px solid ${reached?l.color+'44':'rgba(255,255,255,0.08)'};display:flex;align-items:center;justify-content:center;font-size:18px;filter:${reached?'none':'grayscale(1)'}">${l.icon}</div>
+      <div style="flex:1"><div class="serif" style="font-size:14px;font-weight:700;color:${reached?l.color:'rgba(255,255,255,0.4)'}">${l.name}</div><div style="font-size:10px;color:rgba(255,255,255,0.28)">${l.min===0?'Nivel inicial':`Desde ${l.min} XP`}</div></div>
+      ${reached?`<div style="font-size:18px">✅</div>`:`<div style="font-size:11px;color:rgba(255,255,255,0.3)">${l.min-S.totalXP} XP</div>`}`;
+    lvDiv.appendChild(row);
+  });
+  c.appendChild(lvDiv);
+
+  // Reset button
+  const reset=document.createElement('button');
+  reset.className='btn-p';reset.style.cssText='background:rgba(230,57,70,0.15);color:rgba(230,57,70,0.7);border:1px solid rgba(230,57,70,0.3);margin-top:8px';
+  reset.textContent='🗑️ Borrar todos los datos';
+  reset.onclick=()=>{if(confirm('¿Seguro? Esto eliminará TODOS tus datos permanentemente.')){localStorage.removeItem(SK);location.reload();}};
+  c.appendChild(reset);
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// UTILS
+// ══════════════════════════════════════════════════════════════════════════════
+window.switchTab=function(tab){TAB=tab;render();document.getElementById('tabs').scrollLeft=0;};
+
+document.querySelectorAll('.tab-btn').forEach(btn=>{
+  btn.onclick=()=>{TAB=btn.dataset.tab;render();};
+});
+
+// INIT
+setTimeout(()=>{
+  load();
+  el('loading').style.display='none';
+  el('app').style.display='block';
+  render();
+},700);
+</script>
+</body>
+</html>
