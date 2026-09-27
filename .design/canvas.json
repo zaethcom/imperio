@@ -1,0 +1,40 @@
+{
+  "pages": [
+    { "id": "page-1", "name": "Sistema" },
+    { "id": "page-2", "name": "Pantallas" }
+  ],
+  "artboards": [
+    { "file": "Foundations.dc.html", "title": "Fundamentos", "x": 0,    "y": 0,    "w": 900,  "h": 1600, "page": "page-1" },
+    { "file": "Buttons.dc.html",     "title": "Botones",     "x": 1000, "y": 0,    "w": 1080, "h": 1500, "page": "page-1" },
+    { "file": "Badges.dc.html",      "title": "Etiquetas y filtros", "x": 2180, "y": 0, "w": 1080, "h": 1000, "page": "page-1" },
+    { "file": "Forms.dc.html",       "title": "Campos y captura",    "x": 0,    "y": 1720, "w": 1080, "h": 1100, "page": "page-1" },
+    { "file": "Cards.dc.html",       "title": "Tarjetas y filas",    "x": 1180, "y": 1720, "w": 1080, "h": 1200, "page": "page-1" },
+    { "file": "Navigation.dc.html",  "title": "Navegación",          "x": 2360, "y": 1720, "w": 1080, "h": 1160, "page": "page-1" },
+    { "file": "Main.dc.html",        "title": "Vender (POS) · 1440", "x": 0,    "y": 3600, "w": 1440, "h": 900,  "page": "page-2" },
+    { "file": "Taller.dc.html",      "title": "Taller / Servicio · 1440", "x": 1540, "y": 3600, "w": 1440, "h": 900, "page": "page-2" },
+    { "file": "Mobile.dc.html",      "title": "Escanear equipo · móvil",  "x": 3080, "y": 3600, "w": 390,  "h": 844, "page": "page-2" },
+    { "file": "Inicio.dc.html",      "title": "Inicio · 1440",            "x": 0,    "y": 4600, "w": 1440, "h": 900, "page": "page-2" },
+    { "file": "Inventario.dc.html",  "title": "Inventario · 1440",        "x": 1540, "y": 4600, "w": 1440, "h": 900, "page": "page-2" },
+    { "file": "Ordenes.dc.html",     "title": "Órdenes de taller · 1440", "x": 3080, "y": 4600, "w": 1440, "h": 900, "page": "page-2" },
+    { "file": "Reportes.dc.html",    "title": "Reportes · 1440",          "x": 4620, "y": 4600, "w": 1440, "h": 900, "page": "page-2" }
+  ],
+  "annotations": [
+    {
+      "id": "nota-sistema",
+      "x": 0,
+      "y": -230,
+      "w": 900,
+      "page": "page-1",
+      "text": "Dirección: taller industrial.\nNegro de máquina, rojo de marca solo para la acción, blanco para el mostrador.\nSaira Condensed itálica para la voz de marca, Archivo para toda la interfaz.\nUn solo rojo por pantalla: el botón que cobra, guarda o confirma."
+    },
+    {
+      "id": "nota-pantallas",
+      "x": 0,
+      "y": 3370,
+      "w": 900,
+      "page": "page-2",
+      "text": "Las siete pantallas usan solo piezas de la página Sistema.\nFila de arriba: los tres flujos de mostrador. Fila de abajo: gestión — inicio, inventario, órdenes y reportes.\nDatos de ejemplo: productos, precios y órdenes son de muestra para ver la densidad real."
+    }
+  ],
+  "launch": { "view": "canvas", "page": "page-1" }
+}
