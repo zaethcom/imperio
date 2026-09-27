@@ -1,0 +1,242 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=Saira+Condensed:wght@600;700;800&display=swap"/>
+  <style>
+    *{box-sizing:border-box;}
+    body{margin:0;background:#F3F4F6;color:#131417;font-family:'Archivo','Helvetica Neue',Arial,sans-serif;-webkit-font-smoothing:antialiased;}
+    a{color:#E11B22;text-decoration:none;}
+    a:hover{color:#B8141A;}
+    button{font-family:inherit;cursor:pointer;}
+  </style>
+</helmet>
+
+<div style="width:1440px;height:900px;background:#F3F4F6;display:flex;overflow:hidden;">
+
+  <div style="width:260px;flex-shrink:0;background:#0B0B0C;background-image:linear-gradient(170deg,#141518 0%,#0B0B0C 44%,#000000 100%);display:flex;flex-direction:column;">
+    <div style="padding:18px 16px 14px;border-bottom:1px solid rgba(255,255,255,0.07);">
+      <img src="logo-tps.png" alt="Team Polaco Scooter" style="width:186px;height:auto;display:block;"/>
+    </div>
+    <div style="padding:12px 10px;display:flex;flex-direction:column;gap:3px;">
+      <div style="display:flex;align-items:center;gap:11px;height:44px;padding:0 13px;border-radius:10px;background:#E11B22;color:#FFFFFF;font-size:14px;font-weight:700;box-shadow:0 10px 20px -12px rgba(225,27,34,0.9);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.4 10.4 12 3.3l8.6 7.1"/><path d="M5.6 8.9v11.8h12.8V8.9"/><path d="M9.7 20.7v-6.3h4.6v6.3"/></svg>Inicio</div>
+      <div style="display:flex;align-items:center;gap:11px;height:44px;padding:0 13px;border-radius:10px;color:#C8CCD2;font-size:14px;font-weight:600;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9297A0" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="20" r="1.6"/><circle cx="18" cy="20" r="1.6"/><path d="M2 3h2.6l2.2 11.2a1.8 1.8 0 0 0 1.8 1.5h9.5a1.8 1.8 0 0 0 1.8-1.4L21.5 7H6"/></svg>Vender (POS)</div>
+      <div style="display:flex;align-items:center;gap:11px;height:44px;padding:0 13px;border-radius:10px;color:#C8CCD2;font-size:14px;font-weight:600;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9297A0" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4.8" y="4" width="14.4" height="17" rx="2.4"/><rect x="8.6" y="2" width="6.8" height="3.6" rx="1.4"/><path d="M8.8 10.4h6.4M8.8 14h6.4M8.8 17.6h4.2"/></svg>Órdenes<span style="margin-left:auto;display:inline-flex;align-items:center;justify-content:center;min-width:22px;height:19px;padding:0 6px;border-radius:999px;background:rgba(225,27,34,0.18);color:#E11B22;font-size:11px;font-weight:700;font-variant-numeric:tabular-nums;">4</span></div>
+      <div style="display:flex;align-items:center;gap:11px;height:44px;padding:0 13px;border-radius:10px;color:#C8CCD2;font-size:14px;font-weight:600;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9297A0" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.6 21 7.4v9.2L12 21.4 3 16.6V7.4z"/><path d="M3 7.4 12 12.2l9-4.8"/><path d="M12 12.2v9.2"/></svg>Inventario</div>
+      <div style="display:flex;align-items:center;gap:11px;height:44px;padding:0 13px;border-radius:10px;color:#C8CCD2;font-size:14px;font-weight:600;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9297A0" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="5.2" cy="17.6" r="2.8"/><circle cx="18.8" cy="17.6" r="2.8"/><path d="M8 17.6h8.2L13.9 8.2"/><path d="M13.9 8.2 12.9 4.2h-2.4"/><path d="M12.9 4.2h3.6"/></svg>Equipos</div>
+      <div style="display:flex;align-items:center;gap:11px;height:44px;padding:0 13px;border-radius:10px;color:#C8CCD2;font-size:14px;font-weight:600;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9297A0" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8.6h13M13.8 5.4 17 8.6l-3.2 3.2"/><path d="M20 15.4H7M10.2 12.2 7 15.4l3.2 3.2"/></svg>Traslados</div>
+      <div style="display:flex;align-items:center;gap:11px;height:44px;padding:0 13px;border-radius:10px;color:#C8CCD2;font-size:14px;font-weight:600;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9297A0" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15.8 2.9a5.2 5.2 0 0 0-4.5 7.8L3.6 18.4a2.05 2.05 0 1 0 2.9 2.9l7.7-7.7a5.2 5.2 0 0 0 6.6-6.8l-2.9 2.9-2.9-.7-.7-2.9 2.9-2.9a5.3 5.3 0 0 0-1.4-.3z"/></svg>Taller / Servicio</div>
+      <div style="display:flex;align-items:center;gap:11px;height:44px;padding:0 13px;border-radius:10px;color:#C8CCD2;font-size:14px;font-weight:600;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9297A0" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9.4" cy="8" r="3.7"/><path d="M2.9 20.2a6.5 6.5 0 0 1 13 0"/><path d="M16.4 5.1a3.7 3.7 0 0 1 0 5.8"/><path d="M18.1 14.5a6.5 6.5 0 0 1 3 5.7"/></svg>Clientes (CRM)</div>
+      <div style="display:flex;align-items:center;gap:11px;height:44px;padding:0 13px;border-radius:10px;color:#C8CCD2;font-size:14px;font-weight:600;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9297A0" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 3.4v17.2h16.6"/><path d="M7.8 16.6v-4.4M12 16.6V8.4M16.2 16.6V5.6"/></svg>Reportes</div>
+      <div style="display:flex;align-items:center;gap:11px;height:44px;padding:0 13px;border-radius:10px;color:#C8CCD2;font-size:14px;font-weight:600;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9297A0" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3.1"/><path d="M12 2.4 13.4 5a7.6 7.6 0 0 1 2 .8l2.7-1 1.8 3.1-2.1 1.9a7.6 7.6 0 0 1 0 2.4l2.1 1.9-1.8 3.1-2.7-1a7.6 7.6 0 0 1-2 .8L13.4 21.6h-2.8L9.2 19a7.6 7.6 0 0 1-2-.8l-2.7 1-1.8-3.1 2.1-1.9a7.6 7.6 0 0 1 0-2.4L2.7 9.9l1.8-3.1 2.7 1a7.6 7.6 0 0 1 2-.8L10.6 2.4z"/></svg>Configuración</div>
+    </div>
+    <div style="margin-top:auto;padding:20px 18px;border-top:1px solid rgba(255,255,255,0.07);display:flex;flex-direction:column;gap:8px;">
+      <div style="width:32px;height:3px;background:#E11B22;border-radius:2px;"></div>
+      <div style="font-family:'Saira Condensed','Arial Narrow',sans-serif;font-weight:800;font-style:italic;font-size:23px;line-height:1.02;letter-spacing:0.02em;text-transform:uppercase;color:#FFFFFF;">Movilidad<br/>eléctrica<br/><span style="color:#E11B22;">sin límites</span></div>
+    </div>
+  </div>
+
+  <div style="flex-grow:1;min-width:0;display:flex;flex-direction:column;">
+
+    <div style="height:72px;flex-shrink:0;display:flex;align-items:center;gap:12px;padding:0 20px;background:#0B0B0C;background-image:linear-gradient(115deg,#0B0B0C 0%,#17181B 62%,#0B0B0C 100%);">
+      <button type="button" style="display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;border:1px solid rgba(255,255,255,0.16);border-radius:10px;background:rgba(255,255,255,0.05);flex-shrink:0;"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.6 6.6h16.8M3.6 12h16.8M3.6 17.4h16.8"/></svg></button>
+      <div style="display:flex;align-items:center;gap:9px;height:42px;padding:0 13px;border-radius:10px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.14);flex-shrink:0;">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#C8CCD2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.8 9.4 12 4l9.2 5.4"/><path d="M5.4 9.4v9.2M9.8 9.4v9.2M14.2 9.4v9.2M18.6 9.4v9.2"/><path d="M2.8 21h18.4"/></svg>
+        <span style="font-size:13px;font-weight:600;color:#FFFFFF;">Sede Principal</span>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#9297A0" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.2 9.4 12 15.2l5.8-5.8"/></svg>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;height:42px;padding:0 13px;border-radius:10px;background:#FFFFFF;flex-grow:1;min-width:0;max-width:460px;">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#6B7078" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10.9" cy="10.9" r="6.6"/><path d="M20.4 20.4 15.7 15.7"/></svg>
+        <span style="font-size:13px;color:#9297A0;flex-grow:1;">Buscar producto, cliente o equipo…</span>
+        <span style="display:inline-flex;align-items:center;justify-content:center;min-width:25px;height:21px;padding:0 6px;border-radius:6px;background:#EFF1F4;color:#6B7078;font-size:11px;font-weight:700;">F1</span>
+      </div>
+      <div style="margin-left:auto;display:flex;align-items:center;gap:12px;">
+        <div style="position:relative;display:inline-flex;">
+          <button type="button" style="display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;border:1px solid rgba(255,255,255,0.16);border-radius:10px;background:rgba(255,255,255,0.05);"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8.8a6 6 0 1 0-12 0c0 5.9-2 7.3-2 7.3h16s-2-1.4-2-7.3z"/><path d="M13.7 19.8a2 2 0 0 1-3.4 0"/></svg></button>
+          <span style="position:absolute;top:-6px;right:-6px;display:inline-flex;align-items:center;justify-content:center;min-width:19px;height:19px;padding:0 5px;border-radius:999px;background:#E11B22;color:#FFFFFF;font-size:11px;font-weight:700;border:2px solid #0B0B0C;font-variant-numeric:tabular-nums;">3</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:9px;height:42px;padding:0 11px 0 7px;border-radius:10px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.14);">
+          <span style="display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:8px;background:#E11B22;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="3.8"/><path d="M4.6 20.4a7.4 7.4 0 0 1 14.8 0"/></svg></span>
+          <div style="display:flex;flex-direction:column;line-height:1.15;">
+            <span style="font-size:12px;font-weight:700;color:#FFFFFF;">Admin</span>
+            <span style="font-size:10px;font-weight:500;color:#9297A0;">Administrador</span>
+          </div>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#9297A0" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.2 9.4 12 15.2l5.8-5.8"/></svg>
+        </div>
+        <div style="font-family:'Saira Condensed','Arial Narrow',sans-serif;font-weight:800;font-style:italic;font-size:18px;line-height:0.95;letter-spacing:0.04em;text-transform:uppercase;color:#FFFFFF;text-align:right;">Ride your<br/><span style="color:#E11B22;">style</span></div>
+      </div>
+    </div>
+
+    <div style="flex-grow:1;min-height:0;display:flex;flex-direction:column;gap:14px;padding:18px 20px;">
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-shrink:0;">
+          <div style="display:flex;flex-direction:column;gap:3px;">
+            <div style="font-size:28px;font-weight:800;letter-spacing:-0.02em;color:#131417;line-height:1;">Inicio</div>
+            <div style="font-size:13px;font-weight:500;color:#6B7078;">Miércoles 16 de septiembre · Sede Principal · caja abierta desde las 8:02 a. m.</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;"><button type="button" style="display:inline-flex;align-items:center;gap:7px;height:38px;padding:0 14px;border-radius:9px;border:1px solid #D4D7DD;background:#FFFFFF;color:#1F2126;font-size:13px;font-weight:700;white-space:nowrap;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1F2126" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4.6" y="10" width="14.8" height="11" rx="2.6"/><path d="M8.2 10V7.4a3.8 3.8 0 0 1 7.6 0V10"/><path d="M12 14.4v2.4"/></svg>Cerrar caja</button><button type="button" style="display:inline-flex;align-items:center;gap:7px;height:38px;padding:0 14px;border-radius:9px;border:1px solid #D4D7DD;background:#FFFFFF;color:#1F2126;font-size:13px;font-weight:700;white-space:nowrap;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1F2126" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15.8 2.9a5.2 5.2 0 0 0-4.5 7.8L3.6 18.4a2.05 2.05 0 1 0 2.9 2.9l7.7-7.7a5.2 5.2 0 0 0 6.6-6.8l-2.9 2.9-2.9-.7-.7-2.9 2.9-2.9a5.3 5.3 0 0 0-1.4-.3z"/></svg>Nueva orden</button><button type="button" style="display:inline-flex;align-items:center;gap:7px;height:38px;padding:0 14px;border-radius:9px;border:none;background:#E11B22;color:#FFFFFF;box-shadow:0 10px 20px -12px rgba(11,11,12,0.65);font-size:13px;font-weight:700;white-space:nowrap;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="20" r="1.6"/><circle cx="18" cy="20" r="1.6"/><path d="M2 3h2.6l2.2 11.2a1.8 1.8 0 0 0 1.8 1.5h9.5a1.8 1.8 0 0 0 1.8-1.4L21.5 7H6"/></svg>Nueva venta</button></div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(4, minmax(0, 1fr));gap:12px;flex-shrink:0;">
+          <div style="background:#FFFFFF;border:1px solid #E3E5E9;border-radius:12px;padding:14px 15px;display:flex;flex-direction:column;gap:6px;box-shadow:0 1px 2px rgba(11,11,12,0.05);">
+            <div style="display:flex;align-items:flex-start;gap:8px;">
+              <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#9297A0;line-height:1.3;">Ventas de hoy</div><span style="margin-left:auto;display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:9px;background:#F3F4F6;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6B7078" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.4" y="5.8" width="19.2" height="12.4" rx="2.2"/><circle cx="12" cy="12" r="2.9"/><path d="M6 9.4v5.2M18 9.4v5.2"/></svg></span>
+            </div>
+            <div style="font-size:24px;font-weight:800;color:#131417;letter-spacing:-0.02em;font-variant-numeric:tabular-nums;line-height:1;">$ 8.420.000</div>
+            <div style="font-size:12px;font-weight:700;color:#15803D;font-variant-numeric:tabular-nums;">+12 % vs. ayer</div>
+          </div><div style="background:#FFFFFF;border:1px solid #E3E5E9;border-radius:12px;padding:14px 15px;display:flex;flex-direction:column;gap:6px;box-shadow:0 1px 2px rgba(11,11,12,0.05);">
+            <div style="display:flex;align-items:flex-start;gap:8px;">
+              <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#9297A0;line-height:1.3;">Órdenes abiertas</div><span style="margin-left:auto;display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:9px;background:#F3F4F6;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6B7078" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4.8" y="4" width="14.4" height="17" rx="2.4"/><rect x="8.6" y="2" width="6.8" height="3.6" rx="1.4"/><path d="M8.8 10.4h6.4M8.8 14h6.4M8.8 17.6h4.2"/></svg></span>
+            </div>
+            <div style="font-size:24px;font-weight:800;color:#131417;letter-spacing:-0.02em;font-variant-numeric:tabular-nums;line-height:1;">12</div>
+            <div style="font-size:12px;font-weight:700;color:#A96206;font-variant-numeric:tabular-nums;">4 sin asignar</div>
+          </div><div style="background:#FFFFFF;border:1px solid #E3E5E9;border-radius:12px;padding:14px 15px;display:flex;flex-direction:column;gap:6px;box-shadow:0 1px 2px rgba(11,11,12,0.05);">
+            <div style="display:flex;align-items:flex-start;gap:8px;">
+              <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#9297A0;line-height:1.3;">Equipos en taller</div><span style="margin-left:auto;display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:9px;background:#F3F4F6;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6B7078" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15.8 2.9a5.2 5.2 0 0 0-4.5 7.8L3.6 18.4a2.05 2.05 0 1 0 2.9 2.9l7.7-7.7a5.2 5.2 0 0 0 6.6-6.8l-2.9 2.9-2.9-.7-.7-2.9 2.9-2.9a5.3 5.3 0 0 0-1.4-.3z"/></svg></span>
+            </div>
+            <div style="font-size:24px;font-weight:800;color:#131417;letter-spacing:-0.02em;font-variant-numeric:tabular-nums;line-height:1;">7</div>
+            <div style="font-size:12px;font-weight:700;color:#1D4ED8;font-variant-numeric:tabular-nums;">2 listos para entrega</div>
+          </div><div style="background:#FFFFFF;border:1px solid #E3E5E9;border-radius:12px;padding:14px 15px;display:flex;flex-direction:column;gap:6px;box-shadow:0 1px 2px rgba(11,11,12,0.05);">
+            <div style="display:flex;align-items:flex-start;gap:8px;">
+              <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#9297A0;line-height:1.3;">Ticket promedio</div><span style="margin-left:auto;display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:9px;background:#F3F4F6;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6B7078" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 3.4v17.2h16.6"/><path d="M7.8 16.6v-4.4M12 16.6V8.4M16.2 16.6V5.6"/></svg></span>
+            </div>
+            <div style="font-size:24px;font-weight:800;color:#131417;letter-spacing:-0.02em;font-variant-numeric:tabular-nums;line-height:1;">$ 412.000</div>
+            <div style="font-size:12px;font-weight:700;color:#15803D;font-variant-numeric:tabular-nums;">+3 % vs. la semana</div>
+          </div>
+        </div>
+
+        <div style="flex-grow:1;min-height:0;display:flex;gap:14px;">
+          <div style="flex-grow:1;min-width:0;display:flex;flex-direction:column;gap:12px;">
+            <div style="background:#FFFFFF;border:1px solid #E3E5E9;border-radius:13px;padding:16px;box-shadow:0 1px 2px rgba(11,11,12,0.05);display:flex;flex-direction:column;height:292px;flex-shrink:0;"><div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;"><div style="font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#6B7078;">Ventas de los últimos 14 días</div><div style="margin-left:auto;display:flex;align-items:center;gap:8px;"><span style="font-size:11px;font-weight:600;color:#9297A0;">en millones de pesos</span></div></div><div style="display:flex;gap:10px;">
+              <div style="width:52px;flex-shrink:0;height:186px;display:flex;flex-direction:column;justify-content:space-between;align-items:flex-end;">
+                <span style="font-size:10px;font-weight:600;color:#9297A0;font-variant-numeric:tabular-nums;line-height:1;">10 M</span><span style="font-size:10px;font-weight:600;color:#9297A0;font-variant-numeric:tabular-nums;line-height:1;">7,5 M</span><span style="font-size:10px;font-weight:600;color:#9297A0;font-variant-numeric:tabular-nums;line-height:1;">5 M</span><span style="font-size:10px;font-weight:600;color:#9297A0;font-variant-numeric:tabular-nums;line-height:1;">2,5 M</span><span style="font-size:10px;font-weight:600;color:#9297A0;font-variant-numeric:tabular-nums;line-height:1;">0 M</span>
+              </div>
+              <div style="flex-grow:1;min-width:0;display:flex;flex-direction:column;">
+                <div style="position:relative;height:186px;">
+                  <div style="position:absolute;left:0;right:0;top:0%;height:1px;background:#E3E5E9;"></div><div style="position:absolute;left:0;right:0;top:25%;height:1px;background:#E3E5E9;"></div><div style="position:absolute;left:0;right:0;top:50%;height:1px;background:#E3E5E9;"></div><div style="position:absolute;left:0;right:0;top:75%;height:1px;background:#E3E5E9;"></div><div style="position:absolute;left:0;right:0;top:100%;height:1px;background:#D4D7DD;"></div>
+                  <div style="position:absolute;inset:0;display:flex;align-items:flex-end;gap:2px;"><div style="flex:1;min-width:0;position:relative;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%;"><div style="width:100%;height:52%;background:#6B7078;border-radius:4px 4px 0 0;"></div></div><div style="flex:1;min-width:0;position:relative;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%;"><div style="width:100%;height:61%;background:#6B7078;border-radius:4px 4px 0 0;"></div></div><div style="flex:1;min-width:0;position:relative;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%;"><div style="width:100%;height:48%;background:#6B7078;border-radius:4px 4px 0 0;"></div></div><div style="flex:1;min-width:0;position:relative;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%;"><div style="width:100%;height:73%;background:#6B7078;border-radius:4px 4px 0 0;"></div></div><div style="flex:1;min-width:0;position:relative;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%;"><div style="width:100%;height:69%;background:#6B7078;border-radius:4px 4px 0 0;"></div></div><div style="flex:1;min-width:0;position:relative;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%;"><div style="width:100%;height:92%;background:#6B7078;border-radius:4px 4px 0 0;"></div></div><div style="flex:1;min-width:0;position:relative;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%;"><div style="width:100%;height:81%;background:#6B7078;border-radius:4px 4px 0 0;"></div></div><div style="flex:1;min-width:0;position:relative;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%;"><div style="width:100%;height:56%;background:#6B7078;border-radius:4px 4px 0 0;"></div></div><div style="flex:1;min-width:0;position:relative;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%;"><div style="width:100%;height:64%;background:#6B7078;border-radius:4px 4px 0 0;"></div></div><div style="flex:1;min-width:0;position:relative;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%;"><div style="width:100%;height:78%;background:#6B7078;border-radius:4px 4px 0 0;"></div></div><div style="flex:1;min-width:0;position:relative;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%;"><div style="width:100%;height:71%;background:#6B7078;border-radius:4px 4px 0 0;"></div></div><div style="flex:1;min-width:0;position:relative;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%;"><div style="width:100%;height:96%;background:#6B7078;border-radius:4px 4px 0 0;"></div></div><div style="flex:1;min-width:0;position:relative;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%;"><div style="width:100%;height:88%;background:#6B7078;border-radius:4px 4px 0 0;"></div></div><div style="flex:1;min-width:0;position:relative;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%;"><div style="align-self:flex-end;font-size:11px;font-weight:800;color:#131417;font-variant-numeric:tabular-nums;margin-bottom:5px;white-space:nowrap;">$ 8,42 M</div><div style="width:100%;height:84.2%;background:#0B0B0C;border-radius:4px 4px 0 0;"></div></div></div>
+                </div>
+                <div style="display:flex;gap:2px;margin-top:8px;"><div style="flex:1;min-width:0;text-align:center;font-size:10px;font-weight:600;color:#6B7078;white-space:nowrap;">3</div><div style="flex:1;min-width:0;text-align:center;font-size:10px;font-weight:600;color:#6B7078;white-space:nowrap;">4</div><div style="flex:1;min-width:0;text-align:center;font-size:10px;font-weight:600;color:#6B7078;white-space:nowrap;">5</div><div style="flex:1;min-width:0;text-align:center;font-size:10px;font-weight:600;color:#6B7078;white-space:nowrap;">6</div><div style="flex:1;min-width:0;text-align:center;font-size:10px;font-weight:600;color:#6B7078;white-space:nowrap;">7</div><div style="flex:1;min-width:0;text-align:center;font-size:10px;font-weight:600;color:#6B7078;white-space:nowrap;">8</div><div style="flex:1;min-width:0;text-align:center;font-size:10px;font-weight:600;color:#6B7078;white-space:nowrap;">9</div><div style="flex:1;min-width:0;text-align:center;font-size:10px;font-weight:600;color:#6B7078;white-space:nowrap;">10</div><div style="flex:1;min-width:0;text-align:center;font-size:10px;font-weight:600;color:#6B7078;white-space:nowrap;">11</div><div style="flex:1;min-width:0;text-align:center;font-size:10px;font-weight:600;color:#6B7078;white-space:nowrap;">12</div><div style="flex:1;min-width:0;text-align:center;font-size:10px;font-weight:600;color:#6B7078;white-space:nowrap;">13</div><div style="flex:1;min-width:0;text-align:center;font-size:10px;font-weight:600;color:#6B7078;white-space:nowrap;">14</div><div style="flex:1;min-width:0;text-align:center;font-size:10px;font-weight:600;color:#6B7078;white-space:nowrap;">15</div><div style="flex:1;min-width:0;text-align:center;font-size:10px;font-weight:600;color:#6B7078;white-space:nowrap;">16</div></div>
+              </div>
+            </div><div style="margin-top:auto;padding-top:11px;border-top:1px solid #E3E5E9;display:flex;align-items:center;gap:16px;"><span style="font-size:11px;font-weight:600;color:#6B7078;">Promedio diario <b style="color:#131417;font-variant-numeric:tabular-nums;">$ 7,24 M</b></span><span style="font-size:11px;font-weight:600;color:#6B7078;">Mejor día <b style="color:#131417;">14 de sep · <span style="font-variant-numeric:tabular-nums;">$ 9,6 M</span></b></span></div></div>
+            <div style="background:#FFFFFF;border:1px solid #E3E5E9;border-radius:13px;padding:16px;box-shadow:0 1px 2px rgba(11,11,12,0.05);display:flex;flex-direction:column;height:252px;flex-shrink:0;"><div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;"><div style="font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#6B7078;">Últimas ventas</div><div style="margin-left:auto;display:flex;align-items:center;gap:8px;"><a href="#" style="font-size:11px;font-weight:700;">Ver todas</a></div></div><div style="height:43px;display:flex;align-items:center;gap:11px;border-bottom:1px solid #E3E5E9;">
+              <span style="width:38px;flex-shrink:0;font-size:11px;font-weight:700;color:#6B7078;font-variant-numeric:tabular-nums;">11:42</span>
+              <span style="width:66px;flex-shrink:0;font-size:11px;font-weight:600;color:#4B5058;font-variant-numeric:tabular-nums;">FAC-2291</span>
+              <div style="flex-grow:1;min-width:0;display:flex;flex-direction:column;line-height:1.2;">
+                <span style="font-size:12px;font-weight:700;color:#131417;">Carolina Ruiz</span>
+                <span style="font-size:10px;font-weight:500;color:#9297A0;">2 ítems</span>
+              </div>
+              <span style="display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;color:#6B7078;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#9297A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.4" y="5" width="19.2" height="14" rx="2.6"/><path d="M2.4 9.8h19.2"/><path d="M6 15h3.6"/></svg>Tarjeta</span>
+              <span style="width:92px;flex-shrink:0;text-align:right;font-size:12px;font-weight:800;color:#131417;font-variant-numeric:tabular-nums;">$ 2.559.000</span>
+            </div><div style="height:43px;display:flex;align-items:center;gap:11px;border-bottom:1px solid #E3E5E9;">
+              <span style="width:38px;flex-shrink:0;font-size:11px;font-weight:700;color:#6B7078;font-variant-numeric:tabular-nums;">11:05</span>
+              <span style="width:66px;flex-shrink:0;font-size:11px;font-weight:600;color:#4B5058;font-variant-numeric:tabular-nums;">FAC-2290</span>
+              <div style="flex-grow:1;min-width:0;display:flex;flex-direction:column;line-height:1.2;">
+                <span style="font-size:12px;font-weight:700;color:#131417;">Mostrador</span>
+                <span style="font-size:10px;font-weight:500;color:#9297A0;">1 ítem</span>
+              </div>
+              <span style="display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;color:#6B7078;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#9297A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.4" y="5.8" width="19.2" height="12.4" rx="2.2"/><circle cx="12" cy="12" r="2.9"/><path d="M6 9.4v5.2M18 9.4v5.2"/></svg>Efectivo</span>
+              <span style="width:92px;flex-shrink:0;text-align:right;font-size:12px;font-weight:800;color:#131417;font-variant-numeric:tabular-nums;">$ 125.000</span>
+            </div><div style="height:43px;display:flex;align-items:center;gap:11px;border-bottom:1px solid #E3E5E9;">
+              <span style="width:38px;flex-shrink:0;font-size:11px;font-weight:700;color:#6B7078;font-variant-numeric:tabular-nums;">10:31</span>
+              <span style="width:66px;flex-shrink:0;font-size:11px;font-weight:600;color:#4B5058;font-variant-numeric:tabular-nums;">FAC-2289</span>
+              <div style="flex-grow:1;min-width:0;display:flex;flex-direction:column;line-height:1.2;">
+                <span style="font-size:12px;font-weight:700;color:#131417;">Andrés Mejía</span>
+                <span style="font-size:10px;font-weight:500;color:#9297A0;">3 ítems</span>
+              </div>
+              <span style="display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;color:#6B7078;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#9297A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.8 9.4 12 4l9.2 5.4"/><path d="M5.4 9.4v9.2M9.8 9.4v9.2M14.2 9.4v9.2M18.6 9.4v9.2"/><path d="M2.8 21h18.4"/></svg>Transferencia</span>
+              <span style="width:92px;flex-shrink:0;text-align:right;font-size:12px;font-weight:800;color:#131417;font-variant-numeric:tabular-nums;">$ 749.000</span>
+            </div><div style="height:43px;display:flex;align-items:center;gap:11px;border-bottom:1px solid #E3E5E9;">
+              <span style="width:38px;flex-shrink:0;font-size:11px;font-weight:700;color:#6B7078;font-variant-numeric:tabular-nums;">09:58</span>
+              <span style="width:66px;flex-shrink:0;font-size:11px;font-weight:600;color:#4B5058;font-variant-numeric:tabular-nums;">FAC-2288</span>
+              <div style="flex-grow:1;min-width:0;display:flex;flex-direction:column;line-height:1.2;">
+                <span style="font-size:12px;font-weight:700;color:#131417;">Paola Cárdenas</span>
+                <span style="font-size:10px;font-weight:500;color:#9297A0;">1 ítem</span>
+              </div>
+              <span style="display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;color:#6B7078;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#9297A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.4" y="5" width="19.2" height="14" rx="2.6"/><path d="M2.4 9.8h19.2"/><path d="M6 15h3.6"/></svg>Tarjeta</span>
+              <span style="width:92px;flex-shrink:0;text-align:right;font-size:12px;font-weight:800;color:#131417;font-variant-numeric:tabular-nums;">$ 1.690.000</span>
+            </div></div>
+          </div>
+          <div style="width:420px;flex-shrink:0;display:flex;flex-direction:column;gap:12px;">
+            <div style="background:#FFFFFF;border:1px solid #E3E5E9;border-radius:13px;padding:16px;box-shadow:0 1px 2px rgba(11,11,12,0.05);display:flex;flex-direction:column;height:292px;flex-shrink:0;"><div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;"><div style="font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#6B7078;">Órdenes de taller abiertas</div><div style="margin-left:auto;display:flex;align-items:center;gap:8px;"><a href="#" style="font-size:11px;font-weight:700;">Ver el taller</a></div></div><div style="display:flex;flex-direction:column;gap:5px;"><div style="height:54px;display:flex;align-items:center;gap:11px;padding:0 11px;border:1px solid #E3E5E9;border-radius:10px;background:#FFFFFF;">
+              <span style="display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:9px;background:#F3F4F6;flex-shrink:0;"><svg width="22" height="22" viewBox="0 0 64 64" fill="none" stroke="#2C2F36" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="14" cy="47" r="7.6"/><circle cx="50" cy="47" r="7.6"/><path d="M21.6 47h22.8L37.2 20.6"/><path d="M37.2 20.6 34.4 9.6h-7"/><path d="M34.4 9.6h10.2"/><path d="M18 47h18"/></svg></span>
+              <div style="flex-grow:1;min-width:0;display:flex;flex-direction:column;line-height:1.24;">
+                <span style="font-size:12px;font-weight:700;color:#131417;">ORD-0012 · Juan Torres</span>
+                <span style="font-size:10px;font-weight:500;color:#9297A0;">Patineta Pro X · Mario R.</span>
+              </div>
+              <span style="display:inline-flex;align-items:center;height:22px;padding:0 8px;border-radius:6px;background:#FCF1DE;border:1px solid #F2DDB4;color:#A96206;font-size:11px;font-weight:700;white-space:nowrap;">En reparación</span>
+            </div><div style="height:54px;display:flex;align-items:center;gap:11px;padding:0 11px;border:1px solid #E3E5E9;border-radius:10px;background:#FFFFFF;">
+              <span style="display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:9px;background:#F3F4F6;flex-shrink:0;"><svg width="22" height="22" viewBox="0 0 64 64" fill="none" stroke="#2C2F36" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="14" cy="47" r="7.6"/><circle cx="50" cy="47" r="7.6"/><path d="M21.6 47h22.8L37.2 20.6"/><path d="M37.2 20.6 34.4 9.6h-7"/><path d="M34.4 9.6h10.2"/><path d="M18 47h18"/></svg></span>
+              <div style="flex-grow:1;min-width:0;display:flex;flex-direction:column;line-height:1.24;">
+                <span style="font-size:12px;font-weight:700;color:#131417;">ORD-0011 · Sofía Lara</span>
+                <span style="font-size:10px;font-weight:500;color:#9297A0;">Patineta City · Ana M.</span>
+              </div>
+              <span style="display:inline-flex;align-items:center;height:22px;padding:0 8px;border-radius:6px;background:#EFF1F4;border:1px solid #DDE0E5;color:#4B5058;font-size:11px;font-weight:700;white-space:nowrap;">Espera de repuesto</span>
+            </div><div style="height:54px;display:flex;align-items:center;gap:11px;padding:0 11px;border:1px solid #E3E5E9;border-radius:10px;background:#FFFFFF;">
+              <span style="display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:9px;background:#F3F4F6;flex-shrink:0;"><svg width="22" height="22" viewBox="0 0 64 64" fill="none" stroke="#2C2F36" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="14" cy="47" r="7.6"/><circle cx="50" cy="47" r="7.6"/><path d="M21.6 47h22.8L37.2 20.6"/><path d="M37.2 20.6 34.4 9.6h-7"/><path d="M34.4 9.6h10.2"/><path d="M18 47h18"/></svg></span>
+              <div style="flex-grow:1;min-width:0;display:flex;flex-direction:column;line-height:1.24;">
+                <span style="font-size:12px;font-weight:700;color:#131417;">ORD-0010 · Diego Peña</span>
+                <span style="font-size:10px;font-weight:500;color:#9297A0;">Patineta Urban Lite · Mario R.</span>
+              </div>
+              <span style="display:inline-flex;align-items:center;height:22px;padding:0 8px;border-radius:6px;background:#E7F6EC;border:1px solid #BFE5CB;color:#15803D;font-size:11px;font-weight:700;white-space:nowrap;">Lista</span>
+            </div><div style="height:54px;display:flex;align-items:center;gap:11px;padding:0 11px;border:1px solid #E3E5E9;border-radius:10px;background:#FFFFFF;">
+              <span style="display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:9px;background:#F3F4F6;flex-shrink:0;"><svg width="22" height="22" viewBox="0 0 64 64" fill="none" stroke="#2C2F36" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="14" cy="47" r="7.6"/><circle cx="50" cy="47" r="7.6"/><path d="M21.6 47h22.8L37.2 20.6"/><path d="M37.2 20.6 34.4 9.6h-7"/><path d="M34.4 9.6h10.2"/><path d="M18 47h18"/></svg></span>
+              <div style="flex-grow:1;min-width:0;display:flex;flex-direction:column;line-height:1.24;">
+                <span style="font-size:12px;font-weight:700;color:#131417;">ORD-0009 · Luisa Gómez</span>
+                <span style="font-size:10px;font-weight:500;color:#9297A0;">Patineta Pro X · Sin asignar</span>
+              </div>
+              <span style="display:inline-flex;align-items:center;height:22px;padding:0 8px;border-radius:6px;background:#E9EFFD;border:1px solid #C6D7FA;color:#1D4ED8;font-size:11px;font-weight:700;white-space:nowrap;">Recibida</span>
+            </div></div></div>
+            <div style="background:#FFFFFF;border:1px solid #E3E5E9;border-radius:13px;padding:16px;box-shadow:0 1px 2px rgba(11,11,12,0.05);display:flex;flex-direction:column;height:252px;flex-shrink:0;"><div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;"><div style="font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#6B7078;">Stock crítico</div><div style="margin-left:auto;display:flex;align-items:center;gap:8px;"><a href="#" style="font-size:11px;font-weight:700;">Reponer</a></div></div><div style="display:flex;flex-direction:column;gap:6px;"><div style="height:43px;display:flex;align-items:center;gap:10px;">
+              <span style="display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:8px;background:#F3F4F6;flex-shrink:0;"><svg width="19" height="19" viewBox="0 0 64 64" fill="none" stroke="#2C2F36" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="32" cy="32" r="22.6"/><circle cx="32" cy="32" r="8.4"/><circle cx="32" cy="17.4" r="2.6"/><circle cx="44.6" cy="24.7" r="2.6"/><circle cx="44.6" cy="39.3" r="2.6"/><circle cx="32" cy="46.6" r="2.6"/><circle cx="19.4" cy="39.3" r="2.6"/><circle cx="19.4" cy="24.7" r="2.6"/></svg></span>
+              <div style="flex-grow:1;min-width:0;display:flex;flex-direction:column;line-height:1.2;">
+                <span style="font-size:12px;font-weight:700;color:#131417;">Disco de freno 110 mm</span>
+                <span style="font-size:10px;font-weight:500;color:#9297A0;font-variant-numeric:tabular-nums;">FRE-142</span>
+              </div>
+              <span style="font-size:13px;font-weight:800;color:#131417;font-variant-numeric:tabular-nums;">0</span>
+              <span style="display:inline-flex;align-items:center;height:22px;padding:0 8px;border-radius:6px;background:#EFF1F4;border:1px solid #DDE0E5;color:#4B5058;font-size:11px;font-weight:700;white-space:nowrap;">Agotado</span>
+            </div><div style="height:43px;display:flex;align-items:center;gap:10px;">
+              <span style="display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:8px;background:#F3F4F6;flex-shrink:0;"><svg width="19" height="19" viewBox="0 0 64 64" fill="none" stroke="#2C2F36" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 56V30.8a4 4 0 0 1 8 0v-6.4a4 4 0 0 1 8 0v-2a4 4 0 0 1 8 0v8.4a4 4 0 0 1 7.6-1.8v12A15.6 15.6 0 0 1 34 56z"/><path d="M18 38.4l-5-5a4 4 0 0 1 5.6-5.6l3 3"/></svg></span>
+              <div style="flex-grow:1;min-width:0;display:flex;flex-direction:column;line-height:1.2;">
+                <span style="font-size:12px;font-weight:700;color:#131417;">Guantes antideslizantes</span>
+                <span style="font-size:10px;font-weight:500;color:#9297A0;font-variant-numeric:tabular-nums;">ACC-019</span>
+              </div>
+              <span style="font-size:13px;font-weight:800;color:#131417;font-variant-numeric:tabular-nums;">0</span>
+              <span style="display:inline-flex;align-items:center;height:22px;padding:0 8px;border-radius:6px;background:#EFF1F4;border:1px solid #DDE0E5;color:#4B5058;font-size:11px;font-weight:700;white-space:nowrap;">Agotado</span>
+            </div><div style="height:43px;display:flex;align-items:center;gap:10px;">
+              <span style="display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:8px;background:#F3F4F6;flex-shrink:0;"><svg width="19" height="19" viewBox="0 0 64 64" fill="none" stroke="#2C2F36" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="10" y="18" width="34" height="28" rx="3.4"/><path d="M44 24.6h10M44 32h10M44 39.4h10"/><path d="M17 25.6h20M17 32h20M17 38.4h13"/></svg></span>
+              <div style="flex-grow:1;min-width:0;display:flex;flex-direction:column;line-height:1.2;">
+                <span style="font-size:12px;font-weight:700;color:#131417;">Controlador 48V</span>
+                <span style="font-size:10px;font-weight:500;color:#9297A0;font-variant-numeric:tabular-nums;">CTR-118</span>
+              </div>
+              <span style="font-size:13px;font-weight:800;color:#131417;font-variant-numeric:tabular-nums;">1</span>
+              <span style="display:inline-flex;align-items:center;height:22px;padding:0 8px;border-radius:6px;background:#FCF1DE;border:1px solid #F2DDB4;color:#A96206;font-size:11px;font-weight:700;white-space:nowrap;">Stock bajo</span>
+            </div><div style="height:43px;display:flex;align-items:center;gap:10px;">
+              <span style="display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:8px;background:#F3F4F6;flex-shrink:0;"><svg width="19" height="19" viewBox="0 0 64 64" fill="none" stroke="#2C2F36" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="14" cy="47" r="7.6"/><circle cx="50" cy="47" r="7.6"/><path d="M21.6 47h22.8L37.2 20.6"/><path d="M37.2 20.6 34.4 9.6h-7"/><path d="M34.4 9.6h10.2"/><path d="M18 47h18"/></svg></span>
+              <div style="flex-grow:1;min-width:0;display:flex;flex-direction:column;line-height:1.2;">
+                <span style="font-size:12px;font-weight:700;color:#131417;">Patineta Urban Lite</span>
+                <span style="font-size:10px;font-weight:500;color:#9297A0;font-variant-numeric:tabular-nums;">PAT-004</span>
+              </div>
+              <span style="font-size:13px;font-weight:800;color:#131417;font-variant-numeric:tabular-nums;">2</span>
+              <span style="display:inline-flex;align-items:center;height:22px;padding:0 8px;border-radius:6px;background:#FCF1DE;border:1px solid #F2DDB4;color:#A96206;font-size:11px;font-weight:700;white-space:nowrap;">Stock bajo</span>
+            </div></div></div>
+          </div>
+        </div>
+    </div>
+
+    <div style="height:52px;flex-shrink:0;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:0 20px;background:#0B0B0C;">
+      <div style="display:flex;align-items:center;gap:20px;">
+        
+<span style="display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#C8CCD2;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#E11B22" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="5.2" cy="17.6" r="2.8"/><circle cx="18.8" cy="17.6" r="2.8"/><path d="M8 17.6h8.2L13.9 8.2"/><path d="M13.9 8.2 12.9 4.2h-2.4"/><path d="M12.9 4.2h3.6"/></svg>Venta de patinetas</span>        <span style="display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#C8CCD2;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#E11B22" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.6 21 7.4v9.2L12 21.4 3 16.6V7.4z"/><path d="M3 7.4 12 12.2l9-4.8"/><path d="M12 12.2v9.2"/></svg>Repuestos originales</span>        <span style="display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#C8CCD2;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#E11B22" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15.8 2.9a5.2 5.2 0 0 0-4.5 7.8L3.6 18.4a2.05 2.05 0 1 0 2.9 2.9l7.7-7.7a5.2 5.2 0 0 0 6.6-6.8l-2.9 2.9-2.9-.7-.7-2.9 2.9-2.9a5.3 5.3 0 0 0-1.4-.3z"/></svg>Servicio técnico</span>        <span style="display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#C8CCD2;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#E11B22" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.6 6.4h10.8v10.2H2.6z"/><path d="M13.4 10h3.4l3.8 2.8v3.8h-7.2z"/><circle cx="7" cy="18.6" r="2"/><circle cx="17" cy="18.6" r="2"/></svg>Envíos a todo el país</span>
+      </div>
+      <div style="font-family:'Saira Condensed','Arial Narrow',sans-serif;font-weight:800;font-style:italic;font-size:17px;letter-spacing:0.04em;text-transform:uppercase;color:#FFFFFF;">Movilidad eléctrica <span style="color:#E11B22;">sin límites</span></div>
+    </div>
+  </div>
+</div>
+</x-dc>
+</body>
+</html>

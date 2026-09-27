@@ -12,7 +12,11 @@
     { "file": "Navigation.dc.html",  "title": "Navegación",          "x": 2360, "y": 1720, "w": 1080, "h": 1160, "page": "page-1" },
     { "file": "Main.dc.html",        "title": "Vender (POS) · 1440", "x": 0,    "y": 3600, "w": 1440, "h": 900,  "page": "page-2" },
     { "file": "Taller.dc.html",      "title": "Taller / Servicio · 1440", "x": 1540, "y": 3600, "w": 1440, "h": 900, "page": "page-2" },
-    { "file": "Mobile.dc.html",      "title": "Escanear equipo · móvil",  "x": 3080, "y": 3600, "w": 390,  "h": 844, "page": "page-2" }
+    { "file": "Mobile.dc.html",      "title": "Escanear equipo · móvil",  "x": 3080, "y": 3600, "w": 390,  "h": 844, "page": "page-2" },
+    { "file": "Inicio.dc.html",      "title": "Inicio · 1440",            "x": 0,    "y": 4600, "w": 1440, "h": 900, "page": "page-2" },
+    { "file": "Inventario.dc.html",  "title": "Inventario · 1440",        "x": 1540, "y": 4600, "w": 1440, "h": 900, "page": "page-2" },
+    { "file": "Ordenes.dc.html",     "title": "Órdenes de taller · 1440", "x": 3080, "y": 4600, "w": 1440, "h": 900, "page": "page-2" },
+    { "file": "Reportes.dc.html",    "title": "Reportes · 1440",          "x": 4620, "y": 4600, "w": 1440, "h": 900, "page": "page-2" }
   ],
   "annotations": [
     {
@@ -29,7 +33,7 @@
       "y": 3370,
       "w": 900,
       "page": "page-2",
-      "text": "Las tres pantallas usan solo piezas de la página Sistema.\nDatos de ejemplo: productos, precios y órdenes son de muestra para ver la densidad real."
+      "text": "Las siete pantallas usan solo piezas de la página Sistema.\nFila de arriba: los tres flujos de mostrador. Fila de abajo: gestión — inicio, inventario, órdenes y reportes.\nDatos de ejemplo: productos, precios y órdenes son de muestra para ver la densidad real."
     }
   ],
   "launch": { "view": "canvas", "page": "page-1" }
